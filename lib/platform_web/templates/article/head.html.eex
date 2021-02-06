@@ -1,0 +1,19 @@
+<!-- Share on Linkedin -->
+<meta property='og:title' content='<%= @article.title %>'/>
+<meta property='og:image' content='<%= @article.image_url %>'/>
+<meta property='og:description' content='<%= @article.description %>'/>
+<meta property='og:url' content='https://mihaiblebea.com/article/<%= @article.slug %>'/>
+<meta property='author' content='Mihai Blebea'/>
+<meta name="publish_date" property="og:publish_date" content="<%= @article.inserted_at %>">
+
+<!-- Share on Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:site" content="@MBlebea" />
+<meta property="twitter:creator" content="@MBlebea" />
+<meta property="twitter:title" content="<%= @article.title %>">
+<meta property="twitter:description" content="<%= @article.description %>">
+<meta property="twitter:image" content="<%= @article.image_url %>">
+<meta property='twitter:url' content='https://mihaiblebea.com/article/<%= @article.slug %>'/>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/monokai-sublime.min.css">
+<link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/footer-social.css") %>">

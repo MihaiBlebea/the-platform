@@ -1,0 +1,112 @@
+<header class="masthead masthead-article text-center text-secondary" id="page-top">
+    <div class="container d-flex align-items-center flex-column">
+
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0"><%= @article.title %></h1>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Masthead Subheading-->
+        <p class="masthead-subheading font-weight-light mb-0"><%= @article.subtitle %></p>
+    </div>
+</header>
+
+<div class="page-section">
+    <div class="container">
+
+        <div class="row justify-content-center mb-5">
+            <img class="col-lg-8 col-md-8 w-100" src="<%= @article.image_url %>">
+        </div>
+
+        <div class="row mb-5">
+            <div id="article-content" class="col-lg-8 col-md-8 mx-auto article-content">
+
+                <%= to_html Platform.Article.fetch_content(@article) %>
+
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-lg-8 col-md-8 mx-auto">
+                <%= render_component "card_lead.html" %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-8 mx-auto">
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= if length(@related_articles) > 0 do %>
+<div class="page-section bg-primary">
+    <div class="container">
+
+        <%= render_component "title_section.html", title: "Read more" %>
+
+        <div class="row">
+            <!-- Articles -->
+            <%= for article <- @related_articles do %>
+                <div class="col-lg-6 col-md-6 mx-auto">
+                    <%= render_component "card_article.html", article: article %>
+                </div>
+            <% end %>
+        </div>
+
+    </div>
+</div>
+<% end %>
+
+<!-- Disqus script-->
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+var disqus_config = function () {
+    this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = window.location.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://mihaiblebea.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!-- Highlightjs script-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad()
+    hljs.initLineNumbersOnLoad()
+</script>
+
+<!-- Share article footer -->
+<script src="<%= Routes.static_path(@conn, "/js/footer-social.js") %>"></script>
+<script>
+    const linkedinUrl      = '<%= Platform.Article.get_linkedin_share_url @article %>'
+    const facebookUrl      = '<%= Platform.Article.get_facebook_share_url @article %>'
+    const twitterUrl       = '<%= Platform.Article.get_twitter_share_url @article %>'
+    const footerId         = 'social-footer'
+    const triggerElementId = 'article-content'
+
+    let social = new SocialFooter({
+        linkedin: linkedinUrl,
+        facebook: facebookUrl,
+        twitter: twitterUrl,
+        elementId: footerId,
+        triggerElementId: triggerElementId
+    })
+
+    window.onscroll = function() { social.scrolling() }
+</script>

@@ -1,0 +1,21 @@
+<%= if @meta.total_pages > 1 do %>
+<nav>
+    <ul class="pagination">
+        <li class="page-item<%= if @meta.prev_page == nil, do: " disabled" %>">
+            <a class="page-link" href="?page=<%= @meta.prev_page %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <%= for page <- 1..@meta.total_pages do %>
+            <li class="page-item<%= if @meta.current_page == page, do: " active" %>"><a class="page-link" href="?page=<%= page %>"><%= page %></a></li>
+        <% end %>
+        <li class="page-item<%= if @meta.next_page == nil, do: " disabled" %>">
+            <a class="page-link" href="?page=<%= @meta.next_page %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<% end %>

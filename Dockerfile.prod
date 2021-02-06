@@ -1,0 +1,78 @@
+FROM elixir:1.10.0-alpine AS build
+
+# install build dependencies
+RUN apk add --no-cache build-base npm git python
+
+# prepare build dir
+WORKDIR /app
+
+# install hex + rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+# set build ENV
+ENV MIX_ENV=prod
+ENV MYSQL_USER=admin
+ENV MYSQL_PASSWORD=pass
+ENV MYSQL_DATABASE=blog
+ENV MYSQL_HOST=mariadb
+ENV MYSQL_PORT=3306
+ENV SECRET_KEY_BASE=d140269c106b6d064cdd670a5aace0bbbb1400de545377a47836dbdab8104f2fdf0ab87e6b7982819d1bcc2ccf6a5f093985a0895970f01f30b0b15378a090e9
+
+RUN env
+
+# install mix dependencies
+COPY mix.exs mix.lock ./
+COPY config config
+RUN mix do deps.get, deps.compile
+
+# build assets
+COPY assets/package.json assets/package-lock.json ./assets/
+RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
+
+COPY priv priv
+COPY assets assets
+RUN npm run --prefix ./assets deploy
+RUN mix phx.digest
+
+# compile and build release
+COPY lib lib
+# uncomment COPY if rel/ exists
+# COPY rel rel
+RUN mix do compile, release
+
+# prepare release image
+FROM ubuntu AS app
+
+# RUN apt-get update && apt-get openssl ncurses-libs
+RUN apt-get update && apt-get install -y openssl
+
+RUN useradd --create-home app
+
+WORKDIR /home/app
+
+COPY --from=build /app/_build/prod/rel/platform ./
+COPY start.sh ./start.sh
+
+RUN chown -R app: ./bin
+RUN chown -R app: ./start.sh
+
+USER app
+
+RUN sudo chmod +x ./start.sh
+
+# WORKDIR /app
+
+# RUN chown nobody:nobody /app
+
+# USER nobody:nobody
+
+# COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/platform ./
+
+# copy start.sh file from host and give user permission to execute it
+# COPY start.sh ./start.sh
+# RUN sudo chmod +x ./start.sh
+
+# ENV HOME=/app
+
+CMD ["./bin/platform", "start"]

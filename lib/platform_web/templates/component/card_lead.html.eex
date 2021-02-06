@@ -1,0 +1,34 @@
+<div class="card lead-box">
+    <div class="card-body px-3 py-4 p-md-5">
+
+        <h2 class="text-center text-uppercase text-secondary mb-0">Sign up to the email list</h2>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom mt-0">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <p>I am going to publish posts and tutorials at a regular interval, but we all know how life can get in the way.</p>
+        <p>If you want to stay in touch and get all the latest content first, then you may consider subscribing to my awesome email list</p>
+
+        <form action="/lead" method="POST">
+            <div class="control-group mb-4">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                    <label>Email Address</label>
+                    <input class="form-control" name="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address." />
+                    <p class="help-block text-danger"></p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-xl btn-primary">
+                    <i class="fas fa-download mr-2"></i>
+                    Free Download!
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
