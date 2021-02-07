@@ -42,37 +42,20 @@ COPY lib lib
 RUN mix do compile, release
 
 # prepare release image
-FROM ubuntu AS app
+FROM alpine:3.9 AS app
 
-# RUN apt-get update && apt-get openssl ncurses-libs
-RUN apt-get update && apt-get install -y openssl
+RUN apk add --no-cache openssl ncurses-libs
 
-RUN useradd --create-home app
+WORKDIR /app
 
-WORKDIR /home/app
+RUN chown nobody:nobody /app
 
-COPY --from=build /app/_build/prod/rel/platform ./
-COPY start.sh ./start.sh
+USER nobody:nobody
 
-RUN chown -R app: ./bin
-RUN chown -R app: ./start.sh
+COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/platform ./
 
-USER app
+COPY start.sh ./bin/start.sh
 
-RUN sudo chmod +x ./start.sh
+ENV HOME=/app
 
-# WORKDIR /app
-
-# RUN chown nobody:nobody /app
-
-# USER nobody:nobody
-
-# COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/platform ./
-
-# copy start.sh file from host and give user permission to execute it
-# COPY start.sh ./start.sh
-# RUN sudo chmod +x ./start.sh
-
-# ENV HOME=/app
-
-CMD ["./bin/platform", "start"]
+CMD ["bin/platform", "start"]
