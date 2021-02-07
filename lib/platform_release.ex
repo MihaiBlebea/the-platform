@@ -18,7 +18,6 @@ defmodule PlatformRelease do
 
     def seed() do
         load_app()
-
         for article <- articles(), do: article |> Article.save
     end
 
@@ -31,7 +30,7 @@ defmodule PlatformRelease do
     end
 
     defp articles() do
-        "priv/repo/seeds/articles.json"
+        "seed/articles.json"
         |> File.read!
         |> Jason.decode!
     end

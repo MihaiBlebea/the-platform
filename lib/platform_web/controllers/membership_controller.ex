@@ -45,7 +45,7 @@ defmodule PlatformWeb.MembershipController do
         if password !== password_confirm do
             conn |> redirect(to: conn.request_path)
         end
-        case User.save(%User{name: name, email: email, password: password}) do
+        case User.save(%{name: name, email: email, password: password}) do
             {:ok, user} ->
                 conn
                 |> put_session(:auth_user_id, user.id)

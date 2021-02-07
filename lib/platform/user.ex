@@ -23,9 +23,9 @@ defmodule Platform.User do
         |> hash_password
     end
 
-    @spec save(__MODULE__.t()) :: {:ok, __MODULE__.t()} | {:error, any}
-    def save(%__MODULE__{} = user) do
-        changeset(user, %{})
+    @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
+    def save(user) do
+        changeset(%__MODULE__{}, user)
         |> Platform.Repo.insert
     end
 
