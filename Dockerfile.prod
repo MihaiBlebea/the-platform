@@ -48,13 +48,14 @@ RUN apk add --no-cache openssl ncurses-libs
 
 WORKDIR /app
 
+COPY start ./bin/start
+RUN chmod +x ./bin/start
+
 RUN chown nobody:nobody /app
 
 USER nobody:nobody
 
 COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/platform ./
-
-COPY start.sh ./bin/start.sh
 
 ENV HOME=/app
 

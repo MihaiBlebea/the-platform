@@ -1,0 +1,53 @@
+FROM bitwalker/alpine-elixir-phoenix:latest AS phx-builder
+
+# Set exposed ports
+ENV MIX_ENV=prod
+ENV MYSQL_USER=admin
+ENV MYSQL_PASSWORD=pass
+ENV MYSQL_DATABASE=blog
+ENV MYSQL_HOST=mariadb
+ENV MYSQL_PORT=3306
+ENV SECRET_KEY_BASE=d140269c106b6d064cdd670a5aace0bbbb1400de545377a47836dbdab8104f2fdf0ab87e6b7982819d1bcc2ccf6a5f093985a0895970f01f30b0b15378a090e9
+
+# Cache elixir deps
+ADD mix.exs mix.lock ./
+RUN mix do deps.get, deps.compile
+
+# Same with npm deps
+ADD assets/package.json assets/
+RUN cd assets && \
+    npm install
+
+ADD . .
+
+# Run frontend build, compile, and digest assets
+RUN cd assets/ && \
+    npm run deploy && \
+    cd - && \
+    mix do compile, phx.digest
+
+FROM bitwalker/alpine-elixir:latest
+
+WORKDIR /app
+
+COPY start ./bin/start
+RUN chmod +x ./bin/start
+
+EXPOSE 4000
+ENV PORT=4000 MIX_ENV=prod
+
+# COPY --from=phx-builder /opt/app/_build /opt/app/_build
+# COPY --from=phx-builder /opt/app/priv /opt/app/priv
+# COPY --from=phx-builder /opt/app/config /opt/app/config
+# COPY --from=phx-builder /opt/app/lib /opt/app/lib
+# COPY --from=phx-builder /opt/app/deps /opt/app/deps
+# COPY --from=phx-builder /opt/app/.mix /opt/app/.mix
+# COPY --from=phx-builder /opt/app/mix.* /opt/app/
+
+# alternatively you can just copy the whole dir over with:
+COPY --from=phx-builder /opt/app .
+# be warned, this will however copy over non-build files
+
+USER default
+
+CMD ["mix", "phx.server"]

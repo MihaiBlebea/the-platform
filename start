@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./platform eval "PlatformRelease.migrate"
+./platform eval "PlatformRelease.seed"
