@@ -39,17 +39,6 @@ defmodule Platform.Article do
     @spec all :: [] | [Platform.Article.t()]
     def all(), do: Repo.all(__MODULE__)
 
-    @spec fetch_content(nil | Platform.Article.t()) :: nil | binary
-    def fetch_content(%__MODULE__{} = article) do
-        {:ok, %{body: body, status_code: code}} = article.content_url |> HTTPoison.get
-        case code do
-            200 -> body
-            _ -> nil
-        end
-    end
-
-    def fetch_content(nil), do: nil
-
     @spec get_twitter_share_url(nil | Platform.Article.t()) :: binary
     def get_twitter_share_url(nil) do
         "http://twitter.com/share?url=https://mihaiblebea.com&hashtags=mihaiblebea"

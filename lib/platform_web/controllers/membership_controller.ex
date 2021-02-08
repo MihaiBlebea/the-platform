@@ -3,6 +3,10 @@ defmodule PlatformWeb.MembershipController do
 
     alias Platform.User
 
+    alias Platform.Course
+
+    alias Platform.Lesson
+
     plug :check_auth when action in [:index]
 
     defp check_auth(conn, _args) do
@@ -27,7 +31,15 @@ defmodule PlatformWeb.MembershipController do
 
     @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
     def index(conn, _params) do
-        conn |> render("index.html")
+        courses = Course.all()
+
+        conn |> render("index.html",
+            [
+                title: "Welcome to your membership area",
+                subtitle: "Serban Blebea",
+                courses: courses
+            ]
+        )
     end
 
     @spec get_register(Plug.Conn.t(), any) :: Plug.Conn.t()
@@ -90,5 +102,25 @@ defmodule PlatformWeb.MembershipController do
         |> clear_session()
         |> put_flash(:info, "You are logged out")
         |> redirect(to: "/")
+    end
+
+    def lesson(conn, %{"course" => course_slug}) do
+        course = Course.get_by_slug(course_slug)
+        lesson = Lesson.get_by_course_id(course.id) |> List.first
+        conn |> redirect(to: "/member/" <> course.slug <> "/" <> lesson.slug)
+    end
+
+    def lesson(conn, %{"course" => course_slug, "lesson" => lesson_slug}) do
+        course = Course.get_by_slug(course_slug)
+        lesson = Lesson.get_by_slug_and_course_id(lesson_slug, course.id)
+        lessons = Lesson.get_by_course_id(course.id)
+
+        conn |> render("lesson.html",
+            [
+                course: course,
+                lesson: lesson,
+                lessons: lessons
+            ]
+        )
     end
 end

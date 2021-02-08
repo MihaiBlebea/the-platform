@@ -1,0 +1,65 @@
+<header class="masthead masthead-article text-center text-secondary" id="page-top">
+    <div class="container d-flex align-items-center flex-column">
+
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0"><%= @lesson.title %></h1>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Masthead Subheading-->
+        <p class="masthead-subheading font-weight-light mb-0">Subtitle</p>
+    </div>
+</header>
+
+<div class="page-section">
+    <div class="container">
+
+        <div class="container-iframe mb-5">
+            <iframe
+                src="https://player.vimeo.com/video/507091358"
+                class="responsive-iframe"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="row mb-5">
+            <div id="article-content" class="col-lg-8 col-md-8 article-content">
+
+                <%= @lesson.content_url |> fetch_content |> to_html %>
+
+            </div>
+            <div class="col-lg-4 col-md-4">
+
+                <div class="list-group">
+                    <%= for lesson <- @lessons do %>
+                        <a
+                            href="<%= lesson_slug(@course, lesson) %>"
+                            class="list-group-item list-group-item-action <%= if active_lesson_slug?(@conn, @course, lesson), do: "active" %>">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><%= lesson.title %></h5>
+                                <small>3 days ago</small>
+                            </div>
+                            <p class="mb-1">Some placeholder content in a paragraph.</p>
+                            <small>And some small print.</small>
+                        </a>
+                    <% end %>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-8 mx-auto">
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+    </div>
+</div>

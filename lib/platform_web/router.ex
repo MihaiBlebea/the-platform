@@ -24,6 +24,8 @@ defmodule PlatformWeb.Router do
         post "/member/login", MembershipController, :post_login
         get "/member/logout", MembershipController, :logout
         get "/member", MembershipController, :index
+        get "/member/:course", MembershipController, :lesson
+        get "/member/:course/:lesson", MembershipController, :lesson
     end
 
     # Other scopes may use custom stacks.

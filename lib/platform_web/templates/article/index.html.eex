@@ -26,7 +26,7 @@
         <div class="row mb-5">
             <div id="article-content" class="col-lg-8 col-md-8 mx-auto article-content">
 
-                <%= to_html Platform.Article.fetch_content(@article) %>
+                <%= @article.content_url |> fetch_content |> to_html %>
 
             </div>
         </div>

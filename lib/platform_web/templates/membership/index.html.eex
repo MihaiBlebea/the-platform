@@ -1,17 +1,30 @@
-<header class="masthead bg-primary text-white text-center" id="page-top">
+<header class="masthead masthead-article text-center text-secondary" id="page-top">
     <div class="container d-flex align-items-center flex-column">
-        <!-- Masthead Avatar Image-->
-        <img class="masthead-avatar mb-5" src="<%= Routes.static_path(@conn, "/images/avataaars.svg") %>" alt="" />
+
         <!-- Masthead Heading-->
-        <h1 class="masthead-heading text-uppercase mb-0">Mihai Blebea</h1>
+        <h1 class="masthead-heading text-uppercase mb-0"><%= @title %></h1>
+
         <!-- Icon Divider-->
-        <div class="divider-custom divider-light">
+        <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
             <div class="divider-custom-line"></div>
         </div>
 
         <!-- Masthead Subheading-->
-        <p class="masthead-subheading font-weight-light mb-0">Senior Developer - Udemy Instructor - Entrepreneur</p>
+        <p class="masthead-subheading font-weight-light mb-0"><%= @subtitle %></p>
     </div>
 </header>
+
+<section class="page-section blog">
+    <div class="container">
+
+        <div class="row">
+            <%= for course <- @courses do %>
+                <div class="col-lg-6 col-md-6 mx-auto">
+                    <%= render_component "card_course.html", course: course %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</section>

@@ -22,8 +22,8 @@ services:
             - mariadb
 
     mariadb:
-        # image: mariadb:latest
-        image: jsurf/rpi-mariadb
+        image: mariadb:latest
+        # image: jsurf/rpi-mariadb
         container_name: mariadb
         volumes:
             - ./volume/mysql:/var/lib/mysql

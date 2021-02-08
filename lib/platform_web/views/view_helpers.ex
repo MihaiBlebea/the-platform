@@ -25,4 +25,15 @@ defmodule PlatformWeb.ViewHelpers do
             true -> !!User.get_by_id(user_id)
         end
     end
+
+    @spec fetch_content(nil | binary) :: nil | binary
+    def fetch_content(url) do
+        {:ok, %{body: body, status_code: code}} = url |> HTTPoison.get
+        case code do
+            200 -> body
+            _ -> nil
+        end
+    end
+
+    def fetch_content(nil), do: nil
 end
