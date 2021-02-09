@@ -104,13 +104,15 @@ defmodule PlatformWeb.MembershipController do
         |> redirect(to: "/")
     end
 
-    def lesson(conn, %{"course" => course_slug}) do
+    @spec get_course(Plug.Conn.t(), map) :: Plug.Conn.t()
+    def get_course(conn, %{"course" => course_slug}) do
         course = Course.get_by_slug(course_slug)
         lesson = Lesson.get_by_course_id(course.id) |> List.first
         conn |> redirect(to: "/member/" <> course.slug <> "/" <> lesson.slug)
     end
 
-    def lesson(conn, %{"course" => course_slug, "lesson" => lesson_slug}) do
+    @spec get_lesson(Plug.Conn.t(), map) :: Plug.Conn.t()
+    def get_lesson(conn, %{"course" => course_slug, "lesson" => lesson_slug}) do
         course = Course.get_by_slug(course_slug)
         lesson = Lesson.get_by_slug_and_course_id(lesson_slug, course.id)
         lessons = Lesson.get_by_course_id(course.id)

@@ -12,7 +12,7 @@
         </div>
 
         <!-- Masthead Subheading-->
-        <p class="masthead-subheading font-weight-light mb-0"><%= @subtitle %></p>
+        <p class="masthead-subheading font-weight-light mb-0"><%= fetch_auth_user(@conn).name %></p>
     </div>
 </header>
 

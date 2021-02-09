@@ -12,14 +12,20 @@
         </div>
 
         <!-- Masthead Subheading-->
-        <p class="masthead-subheading font-weight-light mb-0">Subtitle</p>
+        <p class="masthead-subheading font-weight-light mb-0"><%= @course.title %></p>
     </div>
 </header>
 
 <div class="page-section">
     <div class="container">
 
-        <div class="container-iframe mb-5">
+        <!-- Back and forward buttons -->
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" href="<%= last_lesson_url(@course, @lessons, @lesson) %>"><i class="fas fa-chevron-left"></i> Back</a>
+            <a class="btn btn-primary" href="<%= next_lesson_url(@course, @lessons, @lesson) %>">Next <i class="fas fa-chevron-right"></i></a>
+        </div>
+
+        <div class="container-iframe mt-3 mb-5">
             <iframe
                 src="https://player.vimeo.com/video/507091358"
                 class="responsive-iframe"
@@ -53,12 +59,6 @@
                     <% end %>
                 </div>
 
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-8 col-md-8 mx-auto">
-                <div id="disqus_thread"></div>
             </div>
         </div>
     </div>

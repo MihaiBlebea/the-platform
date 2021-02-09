@@ -36,4 +36,7 @@ defmodule PlatformWeb.ViewHelpers do
     end
 
     def fetch_content(nil), do: nil
+
+    @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t()
+    def fetch_auth_user(conn), do:  conn.assigns[:auth_user]
 end
