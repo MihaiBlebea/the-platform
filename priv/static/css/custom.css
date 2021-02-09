@@ -72,7 +72,7 @@
 
 .lead-box {
     font-size: 1rem;
-    border: 8px solid #1abc9c;
+    border: 8px solid #1abc9c!important;
     border-radius: 0.5em;
 }
 
@@ -112,7 +112,7 @@ a.blog-item  {
 }
 
 .card {
-    border: none!important;
+    border: none;
     box-shadow: 0 5px 10px 0 rgb(0 0 0 / 5%);
 }
 

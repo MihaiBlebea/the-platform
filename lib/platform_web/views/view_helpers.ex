@@ -39,4 +39,12 @@ defmodule PlatformWeb.ViewHelpers do
 
     @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t()
     def fetch_auth_user(conn), do:  conn.assigns[:auth_user]
+
+    @spec format_date(Date.t()) :: binary
+    def format_date(date) do
+        [date.year, date.month, date.day]
+        |> Enum.map(&to_string/1)
+        |> Enum.map(&String.pad_leading(&1, 2, "0"))
+        |> Enum.join("-")
+    end
 end
