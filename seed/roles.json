@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Admin",
+        "label": "admin",
+        "active": true
+    },
+    {
+        "title": "Member",
+        "label": "member",
+        "active": true
+    }
+]

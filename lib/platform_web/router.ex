@@ -17,7 +17,15 @@ defmodule PlatformWeb.Router do
         pipe_through :browser
 
         get "/", PageController, :index
+
+        get "/article", ArticleController, :get_create
+        post "/article", ArticleController, :post_create
+        get "/article/update/:id", ArticleController, :get_update
+        post "/article/update/:id", ArticleController, :post_update
+        get "/article/list", ArticleController, :list
+        post "/article/delete", ArticleController, :delete
         get "/article/:slug", ArticleController, :index
+
         get "/member/register", MembershipController, :get_register
         post "/member/register", MembershipController, :post_register
         get "/member/login", MembershipController, :get_login

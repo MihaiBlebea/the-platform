@@ -3,6 +3,8 @@ defmodule PlatformWeb.MembershipController do
 
     alias Platform.User
 
+    alias Platform.Role
+
     alias Platform.Course
 
     alias Platform.Lesson
@@ -57,7 +59,8 @@ defmodule PlatformWeb.MembershipController do
         if password !== password_confirm do
             conn |> redirect(to: conn.request_path)
         end
-        case User.save(%{name: name, email: email, password: password}) do
+        role = Role.get_by_label(:member)
+        case User.save(%{name: name, email: email, password: password, role_id: role.id}) do
             {:ok, user} ->
                 conn
                 |> put_session(:auth_user_id, user.id)

@@ -1,0 +1,41 @@
+<div class="portfolio-modal modal fade" id="<%= "modal_confirm_" <> Integer.to_string(@id) %>" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+            </button>
+            <div class="modal-body text-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <!-- Portfolio Modal - Title-->
+                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Are you sure?</h2>
+                            <!-- Icon Divider-->
+                            <div class="divider-custom">
+                                <div class="divider-custom-line"></div>
+                                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                <div class="divider-custom-line"></div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <form action="<%= @action %>" method="POST">
+                                    <input type="hidden" value="<%= @token %>" name="_csrf_token"/>
+                                    <input type="hidden" value="<%= @id %>" name="id"/>
+
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-check mr-1" aria-hidden="true"></i>
+                                        Yes
+                                    </button>
+                                </form>
+                                <button class="btn btn-secondary" data-dismiss="modal">
+                                    <i class="fas fa-times fa-fw"></i>
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

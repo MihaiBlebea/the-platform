@@ -1,0 +1,144 @@
+<header class="masthead masthead-article text-center text-secondary" id="page-top">
+    <div class="container d-flex align-items-center flex-column">
+
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">
+            <%= if assigns[:update_article], do: "Update article", else: "Create article" %>
+        </h1>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <%= if assigns[:update_article] do %>
+            <p class="masthead-subheading font-weight-light mb-0"><%= @update_article.title %></p>
+        <% end %>
+    </div>
+</header>
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <form
+                    action="<%= if assigns[:update_article], do: "/article/update/" <> Integer.to_string(@update_article.id), else: "/article" %>"
+                    method="POST"
+                >
+
+                    <input type="hidden" value="<%= @token %>" name="_csrf_token"/>
+
+                    <%= if assigns[:update_article] do %>
+                        <input type="hidden" value="<%= @update_article.id %>" name="id" />
+                    <% end %>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Title</label>
+                            <input
+                                class="form-control"
+                                name="title"
+                                type="text"
+                                placeholder="Title"
+                                required="required"
+                                data-validation-required-message="Please enter a title."
+                                value="<%= if assigns[:update_article], do: @update_article.title %>"
+                            />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Subtitle</label>
+                            <input
+                                class="form-control"
+                                name="subtitle"
+                                type="text"
+                                placeholder="Subtitle"
+                                required="required"
+                                data-validation-required-message="Please enter a subtitle."
+                                value="<%= if assigns[:update_article], do: @update_article.subtitle %>"
+                            />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Image URL</label>
+                            <input
+                                class="form-control"
+                                name="image_url"
+                                type="text"
+                                placeholder="Image URL"
+                                required="required"
+                                data-validation-required-message="Please enter an image url."
+                                value="<%= if assigns[:update_article], do: @update_article.image_url %>"
+                            />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Content URL</label>
+                            <input
+                                class="form-control"
+                                name="content_url"
+                                type="text"
+                                placeholder="Content URL"
+                                required="required"
+                                data-validation-required-message="Please enter a content url."
+                                value="<%= if assigns[:update_article], do: @update_article.content_url %>"
+                            />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Slug</label>
+                            <input
+                                class="form-control"
+                                name="slug"
+                                type="text"
+                                placeholder="Slug"
+                                required="required"
+                                data-validation-required-message="Please enter a slug."
+                                value="<%= if assigns[:update_article], do: @update_article.slug %>"
+                            />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Description</label>
+                            <textarea
+                                class="form-control"
+                                name="description"
+                                rows="5"
+                                placeholder="Description"
+                                required="required"
+                                data-validation-required-message="Please enter a description."
+                            ><%= if assigns[:update_article], do: @update_article.description %></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-xl" type="submit">
+                            <%= if assigns[:update_article], do: "Update", else: "Create" %>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,66 @@
+<header class="masthead masthead-article text-center text-secondary" id="page-top">
+    <div class="container d-flex align-items-center flex-column">
+
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">List articles</h1>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+    </div>
+</header>
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="d-flex justify-content-between mb-3">
+            <a class="btn btn-secondary" href="/member"><i class="fas fa-chevron-left"></i> Back</a>
+            <a class="btn btn-primary" href="/article"><i class="fa fa-plus" aria-hidden="true"></i> New</i></a>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%= for article <- @articles do %>
+                        <tr>
+                            <td><%= article.title %></td>
+                            <td>/<%= article.slug %></td>
+                            <td class="no-wrap"><%= format_date(article.inserted_at) %></td>
+                            <td>
+                                <a href="/article/update/<%= article.id %>">
+                                    <i class="far fa-edit mr-3" aria-hidden="true"></i>
+                                </a>
+                                <a
+                                    href=""
+                                    data-toggle="modal"
+                                    data-target="#<%= "modal_confirm_" <> Integer.to_string(article.id) %>"
+                                >
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Render confirm modals here -->
+<%= for article <- @articles do %>
+    <%= render_component "modal_confirm.html", id: article.id, token: @token, action: "/article/delete" %>
+<% end %>

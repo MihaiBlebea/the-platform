@@ -18,6 +18,8 @@ defmodule Mix.Tasks.Seed do
                 "articles" -> for article <- articles(), do: article |> Platform.Article.save
                 "courses" -> for course <- courses(), do: course |> Platform.Course.save
                 "lessons" -> for lesson <- lessons(), do: lesson |> Platform.Lesson.save
+                "users" -> for user <- users(), do: user |> Platform.User.save
+                "roles" -> for role <- roles(), do: role |> Platform.Role.save
             end
             Mix.shell().info("Table " <> table <> " seeded")
         end
@@ -37,6 +39,18 @@ defmodule Mix.Tasks.Seed do
 
     defp lessons() do
         "seed/lessons.json"
+        |> File.read!
+        |> Jason.decode!
+    end
+
+    defp users() do
+        "seed/users.json"
+        |> File.read!
+        |> Jason.decode!
+    end
+
+    defp roles() do
+        "seed/roles.json"
         |> File.read!
         |> Jason.decode!
     end

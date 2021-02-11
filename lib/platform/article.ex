@@ -31,13 +31,32 @@ defmodule Platform.Article do
         |> Repo.insert
     end
 
+    @spec update(integer, map) :: {:ok, __MODULE__.t()} | {:error, any}
+    def update(id, changes) do
+        case get_by_id(id) do
+            nil -> {:error, "Model not found"}
+            article ->
+                article
+                |> changeset(changes)
+                |> Repo.update
+        end
+    end
+
     @spec get_by_slug(any) :: nil | Platform.Article.t()
     def get_by_slug(slug) do
         Repo.get_by(__MODULE__, slug: slug)
     end
 
+    @spec get_by_id(integer) :: nil | Platform.Article.t()
+    def get_by_id(id) do
+        Repo.get_by(__MODULE__, id: id)
+    end
+
     @spec all :: [] | [Platform.Article.t()]
     def all(), do: Repo.all(__MODULE__)
+
+    @spec delete(__MODULE__.t()) :: {:ok, __MODULE__.t()} | {:error, Ecto.Changeset.t()}
+    def delete(%__MODULE__{} = article), do: article |> Repo.delete
 
     @spec get_twitter_share_url(nil | Platform.Article.t()) :: binary
     def get_twitter_share_url(nil) do

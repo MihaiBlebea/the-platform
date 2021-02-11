@@ -9,6 +9,7 @@ defmodule Platform.User do
         field :marketing_consent, :boolean, default: false
         field :name, :string
         field :password, :string
+        field :role_id, :integer
 
         timestamps()
     end
@@ -17,8 +18,8 @@ defmodule Platform.User do
     @doc false
     def changeset(user, attrs) do
         user
-        |> cast(attrs, [:name, :email, :password, :marketing_consent])
-        |> validate_required([:name, :email, :password, :marketing_consent])
+        |> cast(attrs, [:name, :email, :password, :marketing_consent, :role_id])
+        |> validate_required([:name, :email, :password, :marketing_consent, :role_id])
         |> unique_constraint([:email])
         |> hash_password
     end
@@ -34,9 +35,6 @@ defmodule Platform.User do
 
     @spec get_by_id(binary) :: nil | __MODULE__.t()
     def get_by_email(email), do: Platform.Repo.get_by(__MODULE__, email: email)
-
-    # @spec hash_password(binary) :: binary
-    # def hash_password(password), do: Bcrypt.hash_pwd_salt(password)
 
     defp hash_password(%{valid?: false} = changeset), do: changeset
 

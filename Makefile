@@ -4,6 +4,10 @@ create-db:
 migrate:
 	mix ecto.migrate
 
+.PHONY: seed
+seed:
+	mix seed users roles articles courses lessons
+
 # schema:
 #	mix phx.gen.schema User users name:string email:string
 

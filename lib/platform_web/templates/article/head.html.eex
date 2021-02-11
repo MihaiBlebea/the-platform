@@ -1,4 +1,5 @@
 <!-- Share on Linkedin -->
+<%= if assigns[:article] do %>
 <meta property='og:title' content='<%= @article.title %>'/>
 <meta property='og:image' content='<%= @article.image_url %>'/>
 <meta property='og:description' content='<%= @article.description %>'/>
@@ -17,3 +18,4 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/monokai-sublime.min.css">
 <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/footer-social.css") %>">
+<% end %>

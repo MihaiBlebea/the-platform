@@ -2,6 +2,8 @@ defmodule PlatformWeb.ViewHelpers do
 
     alias Platform.User
 
+    alias Platform.Role
+
     @spec render_component(binary, list) :: any
     def render_component(component, assigns \\ []) do
         Phoenix.View.render(PlatformWeb.ComponentView, component, assigns)
@@ -39,6 +41,15 @@ defmodule PlatformWeb.ViewHelpers do
 
     @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t()
     def fetch_auth_user(conn), do:  conn.assigns[:auth_user]
+
+    @spec has_role?(Plug.Conn.t(), atom) :: false | true
+    def has_role?(conn, role_label) when is_atom(role_label) do
+        user = fetch_auth_user(conn)
+        case Role.get_by_id(user.role_id) do
+            nil -> false
+            role -> String.to_atom(role.label) === role_label
+        end
+    end
 
     @spec format_date(Date.t()) :: binary
     def format_date(date) do
