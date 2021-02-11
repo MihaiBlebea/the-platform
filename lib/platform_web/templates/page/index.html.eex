@@ -41,6 +41,25 @@
         <% end %>
 </section>
 
+<!-- Courses Section-->
+<%= if assigns[:courses] && length(@courses) > 0 do %>
+<section class="page-section bg-secondary" id="courses">
+    <div class="container">
+
+        <%= render_component "title_section.html", title: "Courses", theme: :light %>
+
+        <div class="row">
+            <%= for course <- @courses do %>
+                <div class="col-lg-6 col-md-6 mx-auto">
+                    <%= render_component "card_course.html", course: course %>
+                </div>
+            <% end %>
+        </div>
+
+    </div>
+</div>
+<% end %>
+
 <!-- About Section-->
 <section class="page-section bg-primary text-white mb-0" id="about">
     <div class="container">

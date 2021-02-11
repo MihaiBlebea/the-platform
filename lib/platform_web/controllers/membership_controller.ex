@@ -7,7 +7,7 @@ defmodule PlatformWeb.MembershipController do
 
     alias Platform.Lesson
 
-    plug :check_auth when action in [:index]
+    plug :check_auth when action in [:index, :get_course, :get_lesson]
 
     defp check_auth(conn, _args) do
         if user_id = get_session(conn, :auth_user_id) do
