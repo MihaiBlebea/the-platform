@@ -15,7 +15,7 @@ defmodule Platform.Tag do
 
         timestamps()
 
-        many_to_many(:articles, Article, join_through: "article_tag", on_replace: :delete)
+        many_to_many(:articles, Article, join_through: "article_tag")
     end
 
     @spec changeset(map, map) :: Ecto.Changeset.t()

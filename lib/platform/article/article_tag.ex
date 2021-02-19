@@ -9,12 +9,12 @@ defmodule Platform.ArticleTag do
 
     @primary_key false
     schema "article_tag" do
-        field :article_id, :integer
-        field :tag_id, :integer
-        # belongs_to(:article, Article, primary_key: true)
-        # belongs_to(:tag, Tag, primary_key: true)
+        # field :article_id, :integer
+        # field :tag_id, :integer
+        belongs_to(:article, Platform.Article, primary_key: true)
+        belongs_to(:tag, Platform.Tag, primary_key: true)
 
-        timestamps()
+        # timestamps()
     end
 
     @doc false

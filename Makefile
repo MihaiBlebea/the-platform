@@ -4,12 +4,14 @@ create-db:
 migrate:
 	mix ecto.migrate
 
-migrate:
+drop:
 	mix ecto.drop
 
 .PHONY: seed
 seed:
 	mix seed users roles articles courses lessons tags article_tag
+
+refresh: drop create-db migrate seed
 
 # schema:
 #	mix phx.gen.schema User users name:string email:string

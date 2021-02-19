@@ -29,28 +29,12 @@ defmodule Platform.Article do
         |> validate_required([:title, :subtitle, :description, :image_url, :content_url, :slug])
     end
 
-    @spec changeset_update_tags(__MODULE__.t(), [Tag.t()]) :: none
-    def changeset_update_tags(%__MODULE__{} = article, tags) do
-        article
-        |> cast(%{}, [:title, :subtitle, :description, :image_url, :content_url, :slug])
+    @spec update_tags(map, list) :: any
+    def update_tags(article, tags) do
+        changeset(article, %{})
         |> put_assoc(:tags, tags)
+        |> Repo.update!
     end
-
-    # def upsert_artile_tags(article, tags_ids) when is_list(tags_ids) do
-    #     tags =
-    #         Tag
-    #         |> where([tag], tag.id in tags_ids)
-    #         |> Repo.all()
-
-    #     with {:ok, _struct} <-
-    #         article
-    #         |> Article.changeset_update_tags(tags)
-    #         |> Repo.update() do
-    #             {:ok, Accounts.get_user(user.id)}
-    #     else
-    #         error -> error
-    #     end
-    # end
 
     @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
     def save(article) do
@@ -71,16 +55,16 @@ defmodule Platform.Article do
 
     @spec get_by_slug(any) :: nil | Platform.Article.t()
     def get_by_slug(slug) do
-        Repo.get_by(__MODULE__, slug: slug)
+        Repo.get_by(__MODULE__, slug: slug) |> Repo.preload(:tags)
     end
 
     @spec get_by_id(integer) :: nil | Platform.Article.t()
     def get_by_id(id) do
-        Repo.get_by(__MODULE__, id: id)
+        Repo.get_by(__MODULE__, id: id) |> Repo.preload(:tags)
     end
 
     @spec all :: [] | [Platform.Article.t()]
-    def all(), do: Repo.all(__MODULE__)
+    def all(), do: Repo.all(__MODULE__) |> Repo.preload(:tags)
 
     @spec tags(Platform.Article.t()) :: nil | Platform.Article.t()
     def tags(%__MODULE__{} = article), do: Repo.preload(article, :tags)
