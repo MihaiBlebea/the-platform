@@ -3,9 +3,7 @@ defmodule PlatformWeb.PageController do
 
     alias PlatformWeb.Pagination
 
-    alias Platform.Course
-
-    alias Platform.Article
+    alias Platform.{Course, Article}
 
     @articles_per_page 2
 

@@ -38,6 +38,6 @@ defmodule Platform.Lesson do
 
     @spec get_by_course_id(any) :: nil | [Platform.Lesson.t()]
     def get_by_course_id(course_id) do
-        Repo.all from l in Platform.Lesson, where: l.course_id == ^course_id
+        from(l in Platform.Lesson, where: l.course_id == ^course_id) |> Repo.all
     end
 end

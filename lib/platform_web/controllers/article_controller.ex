@@ -1,9 +1,7 @@
 defmodule PlatformWeb.ArticleController do
     use PlatformWeb, :controller
 
-    alias Platform.Article
-
-    alias Platform.Tag
+    alias Platform.{Article, Tag}
 
     @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
     def index(conn, %{"slug" => slug}) do
@@ -43,11 +41,11 @@ defmodule PlatformWeb.ArticleController do
         "image_url" => _image_url,
         "content_url" => _content_url,
         "slug" => _slug,
-        "description" => _description,
-        "tags" => _tags} = article) do
-
-            case Article.save(article) do
+        "description" => _description} = request) do
+            case Article.save(request) do
                 {:ok, article} ->
+                    article.id |> Article.update_tags_by_ids(Map.get(request, "tags", nil))
+
                     conn
                     |> put_flash(:info, "Article \"#{article.title}\" saved")
                     |> redirect(to: "/article/list")
@@ -68,7 +66,7 @@ defmodule PlatformWeb.ArticleController do
                 |> render(:"404")
             article ->
                 conn
-                |> render("create.html", update_article: article, token: get_csrf_token())
+                |> render("create.html", update_article: article, tags: Tag.all(), token: get_csrf_token())
         end
     end
 
@@ -80,13 +78,15 @@ defmodule PlatformWeb.ArticleController do
         "image_url" => _image_url,
         "content_url" => _content_url,
         "slug" => _slug,
-        "description" => _description} = article) do
-
-            case Article.update(id, article) do
+        "description" => _description} = request) do
+            case Article.update(id, request) do
                 {:ok, article} ->
+                    article.id |> Article.update_tags_by_ids(Map.get(request, "tags", nil))
+
                     conn
                     |> put_flash(:info, "Article \"#{article.title}\" updated")
                     |> redirect(to: "/article/list")
+
                 {:error, _error} ->
                     conn
                     |> put_flash(:info, "Something went wrong. Please try again")

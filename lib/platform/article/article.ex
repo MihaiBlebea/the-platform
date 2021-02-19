@@ -1,10 +1,9 @@
 defmodule Platform.Article do
     use Ecto.Schema
+
     import Ecto.Changeset
 
-    alias Platform.Repo
-
-    alias Platform.Tag
+    alias Platform.{Article, Tag, Repo}
 
     @type t() :: %__MODULE__{}
 
@@ -17,7 +16,7 @@ defmodule Platform.Article do
         field :title, :string
 
         timestamps()
-        # has_many(:tags, Tag)
+
         many_to_many(:tags, Tag, join_through: "article_tag", on_replace: :delete)
     end
 
@@ -29,19 +28,6 @@ defmodule Platform.Article do
         |> validate_required([:title, :subtitle, :description, :image_url, :content_url, :slug])
     end
 
-    @spec update_tags(map, list) :: any
-    def update_tags(article, tags) do
-        changeset(article, %{})
-        |> put_assoc(:tags, tags)
-        |> Repo.update!
-    end
-
-    @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
-    def save(article) do
-        changeset(%__MODULE__{}, article)
-        |> Repo.insert
-    end
-
     @spec update(integer, map) :: {:ok, __MODULE__.t()} | {:error, any}
     def update(id, changes) do
         case get_by_id(id) do
@@ -51,6 +37,30 @@ defmodule Platform.Article do
                 |> changeset(changes)
                 |> Repo.update
         end
+    end
+
+    @spec update_tags(map, list) :: any
+    def update_tags(article, tags) do
+        changeset(article, %{})
+        |> put_assoc(:tags, tags)
+        |> Repo.update!
+    end
+
+    @spec update_tags_by_ids(integer, nil | list) :: any
+    def update_tags_by_ids(article_id, nil), do: update_tags_by_ids(article_id, [])
+
+    def update_tags_by_ids(article_id, tag_ids) do
+        tags = Tag.get_in_id_list(tag_ids)
+
+        article_id
+        |> Article.get_by_id
+        |> Article.update_tags(tags)
+    end
+
+    @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
+    def save(article) do
+        changeset(%__MODULE__{}, article)
+        |> Repo.insert
     end
 
     @spec get_by_slug(any) :: nil | Platform.Article.t()
@@ -65,9 +75,6 @@ defmodule Platform.Article do
 
     @spec all :: [] | [Platform.Article.t()]
     def all(), do: Repo.all(__MODULE__) |> Repo.preload(:tags)
-
-    @spec tags(Platform.Article.t()) :: nil | Platform.Article.t()
-    def tags(%__MODULE__{} = article), do: Repo.preload(article, :tags)
 
     @spec delete(__MODULE__.t()) :: {:ok, __MODULE__.t()} | {:error, Ecto.Changeset.t()}
     def delete(%__MODULE__{} = article), do: article |> Repo.delete

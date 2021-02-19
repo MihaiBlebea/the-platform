@@ -29,6 +29,8 @@ defmodule PlatformWeb.ViewHelpers do
     end
 
     @spec fetch_content(nil | binary) :: nil | binary
+    def fetch_content(nil), do: nil
+
     def fetch_content(url) do
         {:ok, %{body: body, status_code: code}} = url |> HTTPoison.get
         case code do
@@ -36,8 +38,6 @@ defmodule PlatformWeb.ViewHelpers do
             _ -> nil
         end
     end
-
-    def fetch_content(nil), do: nil
 
     @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t()
     def fetch_auth_user(conn), do:  conn.assigns[:auth_user]
@@ -57,15 +57,5 @@ defmodule PlatformWeb.ViewHelpers do
         |> Enum.map(&to_string/1)
         |> Enum.map(&String.pad_leading(&1, 2, "0"))
         |> Enum.join("-")
-    end
-
-    @spec render_article_tags(Platform.Article.t()) :: binary
-    def render_article_tags(article) do
-        Platform.Article.tags(article)
-        |> Map.get(:tags)
-        |> Enum.map(fn (tag) ->
-            tag.label
-        end)
-        |> Enum.join(", ")
     end
 end

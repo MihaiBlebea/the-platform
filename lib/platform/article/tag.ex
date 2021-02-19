@@ -1,11 +1,9 @@
 defmodule Platform.Tag do
     use Ecto.Schema
 
-    import Ecto.Changeset
+    import Ecto.{Changeset, Query}
 
-    alias Platform.Repo
-
-    alias Platform.Article
+    alias Platform.{Repo, Article, Tag}
 
     @type t() :: %__MODULE__{}
 
@@ -43,5 +41,10 @@ defmodule Platform.Tag do
     @spec get_by_label(binary) :: nil | Tag.t()
     def get_by_label(label) do
         Repo.get_by(__MODULE__, label: label)
+    end
+
+    @spec get_in_id_list(list) :: [Tag.t()]
+    def get_in_id_list(ids) do
+        from(t in Tag, where: t.id in ^ids) |> Repo.all
     end
 end
