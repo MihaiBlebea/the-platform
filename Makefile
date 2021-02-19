@@ -4,9 +4,12 @@ create-db:
 migrate:
 	mix ecto.migrate
 
+migrate:
+	mix ecto.drop
+
 .PHONY: seed
 seed:
-	mix seed users roles articles courses lessons
+	mix seed users roles articles courses lessons tags article_tag
 
 # schema:
 #	mix phx.gen.schema User users name:string email:string
@@ -20,7 +23,7 @@ iex:
 build-up: build up
 
 build:
-	docker-compose build --no-cache
+	docker-compose build
 
 up:
 	docker-compose up -d

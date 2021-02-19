@@ -4,6 +4,8 @@ defmodule Platform.Article do
 
     alias Platform.Repo
 
+    alias Platform.Tag
+
     @type t() :: %__MODULE__{}
 
     schema "articles" do
@@ -15,6 +17,8 @@ defmodule Platform.Article do
         field :title, :string
 
         timestamps()
+        # has_many(:tags, Tag)
+        many_to_many(:tags, Tag, join_through: "article_tag", on_replace: :delete)
     end
 
     @spec changeset(map, map) :: Ecto.Changeset.t()
@@ -24,6 +28,29 @@ defmodule Platform.Article do
         |> cast(attrs, [:title, :subtitle, :description, :image_url, :content_url, :slug])
         |> validate_required([:title, :subtitle, :description, :image_url, :content_url, :slug])
     end
+
+    @spec changeset_update_tags(__MODULE__.t(), [Tag.t()]) :: none
+    def changeset_update_tags(%__MODULE__{} = article, tags) do
+        article
+        |> cast(%{}, [:title, :subtitle, :description, :image_url, :content_url, :slug])
+        |> put_assoc(:tags, tags)
+    end
+
+    # def upsert_artile_tags(article, tags_ids) when is_list(tags_ids) do
+    #     tags =
+    #         Tag
+    #         |> where([tag], tag.id in tags_ids)
+    #         |> Repo.all()
+
+    #     with {:ok, _struct} <-
+    #         article
+    #         |> Article.changeset_update_tags(tags)
+    #         |> Repo.update() do
+    #             {:ok, Accounts.get_user(user.id)}
+    #     else
+    #         error -> error
+    #     end
+    # end
 
     @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
     def save(article) do
@@ -54,6 +81,9 @@ defmodule Platform.Article do
 
     @spec all :: [] | [Platform.Article.t()]
     def all(), do: Repo.all(__MODULE__)
+
+    @spec tags(Platform.Article.t()) :: nil | Platform.Article.t()
+    def tags(%__MODULE__{} = article), do: Repo.preload(article, :tags)
 
     @spec delete(__MODULE__.t()) :: {:ok, __MODULE__.t()} | {:error, Ecto.Changeset.t()}
     def delete(%__MODULE__{} = article), do: article |> Repo.delete

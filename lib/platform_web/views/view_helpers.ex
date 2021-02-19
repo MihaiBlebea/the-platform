@@ -58,4 +58,14 @@ defmodule PlatformWeb.ViewHelpers do
         |> Enum.map(&String.pad_leading(&1, 2, "0"))
         |> Enum.join("-")
     end
+
+    @spec render_article_tags(Platform.Article.t()) :: binary
+    def render_article_tags(article) do
+        Platform.Article.tags(article)
+        |> Map.get(:tags)
+        |> Enum.map(fn (tag) ->
+            tag.label
+        end)
+        |> Enum.join(", ")
+    end
 end

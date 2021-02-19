@@ -130,8 +130,22 @@
                         </div>
                     </div>
 
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Tags</label>
+                            <textarea
+                                class="form-control"
+                                name="description"
+                                rows="3"
+                                placeholder="Tags"
+                                required="required"
+                                data-validation-required-message="Please enter tags."
+                            ><%= if assigns[:update_article], do: render_article_tags(@update_article) %></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
                     <br />
-                    <div id="success"></div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-xl" type="submit">
                             <%= if assigns[:update_article], do: "Update", else: "Create" %>

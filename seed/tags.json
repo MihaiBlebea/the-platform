@@ -1,0 +1,10 @@
+[
+    {
+        "label": "kube",
+        "active": true
+    },
+    {
+        "label": "golan",
+        "active": false
+    }
+]

@@ -3,6 +3,8 @@ defmodule PlatformWeb.ArticleController do
 
     alias Platform.Article
 
+    alias Platform.Tag
+
     @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
     def index(conn, %{"slug" => slug}) do
         case Article.get_by_slug(slug) do
@@ -30,7 +32,8 @@ defmodule PlatformWeb.ArticleController do
 
     @spec get_create(Plug.Conn.t(), map) :: Plug.Conn.t()
     def get_create(conn, _params) do
-        render(conn, "create.html", token: get_csrf_token())
+        tags = Tag.all()
+        render(conn, "create.html", token: get_csrf_token(), tags: tags)
     end
 
     @spec post_create(Plug.Conn.t(), map) :: Plug.Conn.t()
@@ -40,7 +43,8 @@ defmodule PlatformWeb.ArticleController do
         "image_url" => _image_url,
         "content_url" => _content_url,
         "slug" => _slug,
-        "description" => _description} = article) do
+        "description" => _description,
+        "tags" => _tags} = article) do
 
             case Article.save(article) do
                 {:ok, article} ->

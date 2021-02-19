@@ -16,6 +16,8 @@ defmodule Mix.Tasks.Seed do
         for table <- args do
             case table do
                 "articles" -> for article <- articles(), do: article |> Platform.Article.save
+                "tags" -> for tag <- tags(), do: tag |> Platform.Tag.save
+                "article_tag" -> for article_tag <- article_tags(), do: article_tag |> Platform.ArticleTag.save
                 "courses" -> for course <- courses(), do: course |> Platform.Course.save
                 "lessons" -> for lesson <- lessons(), do: lesson |> Platform.Lesson.save
                 "users" -> for user <- users(), do: user |> Platform.User.save
@@ -27,6 +29,18 @@ defmodule Mix.Tasks.Seed do
 
     defp articles() do
         "seed/articles.json"
+        |> File.read!
+        |> Jason.decode!
+    end
+
+    defp tags() do
+        "seed/tags.json"
+        |> File.read!
+        |> Jason.decode!
+    end
+
+    defp article_tags() do
+        "seed/article_tags.json"
         |> File.read!
         |> Jason.decode!
     end
