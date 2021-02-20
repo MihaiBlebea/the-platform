@@ -8,8 +8,6 @@ defmodule PlatformWeb.PageViewPlug do
 
     @spec call(Plug.Conn.t(), Plug.opts) :: Plug.Conn.t()
     def call(conn, _opts) do
-        # conn
-        # |> put_session(:user, %{name: "Jack"})
         PageView.save %{url: conn.request_path}
 
         conn
