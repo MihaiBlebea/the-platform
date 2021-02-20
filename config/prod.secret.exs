@@ -4,11 +4,6 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
-System.fetch_env!("MYSQL_USER") ||
-        raise """
-        environment variable MYSQL_USER is missing.
-        """
-
 database_url = "mysql://#{ System.get_env("MYSQL_HOST") }:#{ System.get_env("MYSQL_PORT") }/#{ System.get_env("MYSQL_DATABASE") }?user=#{ System.get_env("MYSQL_USER") }&password=#{ System.get_env("MYSQL_PASSWORD") }"
 #   System.get_env("DATABASE_URL") ||
 #     raise """
