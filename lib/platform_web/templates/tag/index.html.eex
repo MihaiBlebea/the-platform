@@ -1,0 +1,38 @@
+<header class="masthead masthead-article text-center text-secondary" id="page-top">
+    <div class="container d-flex align-items-center flex-column">
+
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">Blog</h1>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Masthead Subheading-->
+        <p class="masthead-subheading font-weight-light mb-0"><%= title_case @tag.label %></p>
+    </div>
+</header>
+
+<!-- Blog-->
+<section class="page-section blog">
+    <div class="container">
+        <div class="row">
+            <!-- Articles -->
+            <%= for article <- @articles do %>
+                <div class="col-lg-6 col-md-6 mx-auto">
+                    <%= render_component "card_article.html", article: article %>
+                </div>
+            <% end %>
+        </div>
+
+        <%= if assigns[:meta] do %>
+            <div class="mx-auto fit-content">
+                <!-- Pagination -->
+                <%= render_component "pagination.html", meta: @meta %>
+
+            </div>
+        <% end %>
+</section>

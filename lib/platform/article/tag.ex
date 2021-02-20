@@ -35,12 +35,12 @@ defmodule Platform.Tag do
 
     @spec get_by_id(integer) :: nil | Tag.t()
     def get_by_id(id) do
-        Repo.get_by(__MODULE__, id: id)
+        Repo.get_by(__MODULE__, id: id) |> Repo.preload(:articles)
     end
 
     @spec get_by_label(binary) :: nil | Tag.t()
     def get_by_label(label) do
-        Repo.get_by(__MODULE__, label: label)
+        Repo.get_by(__MODULE__, label: label) |> Repo.preload(:articles)
     end
 
     @spec get_in_id_list(list) :: [Tag.t()]

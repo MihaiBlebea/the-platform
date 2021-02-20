@@ -1,13 +1,7 @@
 defmodule PlatformWeb.MembershipController do
     use PlatformWeb, :controller
 
-    alias Platform.User
-
-    alias Platform.Role
-
-    alias Platform.Course
-
-    alias Platform.Lesson
+    alias Platform.{User, Role, Course, Lesson}
 
     plug :check_auth when action in [:index, :get_course, :get_lesson]
 

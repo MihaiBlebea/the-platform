@@ -73,6 +73,15 @@ defmodule Platform.Article do
         Repo.get_by(__MODULE__, id: id) |> Repo.preload(:tags)
     end
 
+    @spec with_tags(Platform.Article.t() | [Platform.Article.t()]) :: Platform.Article.t()
+    def with_tags(articles) when is_list(articles) do
+        articles |> Repo.preload(:tags)
+    end
+
+    def with_tags(article) do
+        article |> Repo.preload(:tags)
+    end
+
     @spec all :: [] | [Platform.Article.t()]
     def all(), do: Repo.all(__MODULE__) |> Repo.preload(:tags)
 

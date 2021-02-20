@@ -5,8 +5,8 @@
             <h4 class="text-uppercase"><%= @article.title %></h4>
 
             <div class="mb-4">
-                <%= for tag <- [] do %>
-                    <a href="/tag/<%= tag %>" class="badge badge-primary mb-2 mb-sm-0">#<%= tag %></a>
+                <%= for tag <- @article.tags do %>
+                    <a href="/tag/<%= tag.label %>" class="badge badge-primary mb-2 mb-sm-0">#<%= tag.label %></a>
                 <% end %>
             </div>
 

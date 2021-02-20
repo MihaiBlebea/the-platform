@@ -19,6 +19,9 @@ defmodule PlatformWeb.ViewHelpers do
         end
     end
 
+    @spec title_case(binary) :: binary
+    def title_case(title), do: String.capitalize title
+
     @spec signed_in?(Plug.Conn.t()) :: false | true
     def signed_in?(conn) do
         user_id = Plug.Conn.get_session(conn, :auth_user_id)

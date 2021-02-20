@@ -26,6 +26,8 @@ defmodule PlatformWeb.Router do
         post "/article/delete", ArticleController, :delete
         get "/article/:slug", ArticleController, :index
 
+        get "/tag/:slug", TagController, :index
+
         get "/member/register", MembershipController, :get_register
         post "/member/register", MembershipController, :post_register
         get "/member/login", MembershipController, :get_login

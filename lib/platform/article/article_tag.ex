@@ -9,14 +9,11 @@ defmodule Platform.ArticleTag do
 
     @primary_key false
     schema "article_tag" do
-        # field :article_id, :integer
-        # field :tag_id, :integer
         belongs_to(:article, Platform.Article, primary_key: true)
         belongs_to(:tag, Platform.Tag, primary_key: true)
-
-        # timestamps()
     end
 
+    @spec changeset(map, map) :: Ecto.Changeset.t()
     @doc false
     def changeset(article_tag, attrs) do
         article_tag

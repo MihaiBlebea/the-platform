@@ -4,8 +4,8 @@ defmodule PlatformWeb.ArticleController do
     alias Platform.{Article, Tag}
 
     @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
-    def index(conn, %{"slug" => slug}) do
-        case Article.get_by_slug(slug) do
+    def index(conn, %{"slug" => article_slug}) do
+        case Article.get_by_slug(article_slug) do
             nil ->
                 conn
                 |> put_status(:not_found)
