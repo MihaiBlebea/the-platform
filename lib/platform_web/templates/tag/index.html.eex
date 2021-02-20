@@ -23,7 +23,7 @@
             <!-- Articles -->
             <%= for article <- @articles do %>
                 <div class="col-lg-6 col-md-6 mx-auto">
-                    <%= render_component "card_article.html", article: article %>
+                    <%= render_component "card_article.html", article: article, extended: true %>
                 </div>
             <% end %>
         </div>

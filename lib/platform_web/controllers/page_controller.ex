@@ -27,11 +27,27 @@ defmodule PlatformWeb.PageController do
 
                 conn |> render("index.html",
                     [
+                        token: get_csrf_token(),
                         articles: articles_paginated,
                         meta: meta,
                         courses: courses
                     ]
                 )
+        end
+    end
+
+    @spec contact(Plug.Conn.t(), map) :: Plug.Conn.t()
+    def contact(conn, %{"name" => _name, "email" => _email, "phone" => _phone, "message" => message}) do
+
+        case Platform.Slack.send_text(message) do
+            :ok ->
+                conn
+                |> put_flash(:info, "Your message has been sent")
+                |> redirect(to: "/")
+            _ ->
+                conn
+                |> put_flash(:error, "We were not able to send your message at this time. Please try again later")
+                |> redirect(to: "/")
         end
     end
 end

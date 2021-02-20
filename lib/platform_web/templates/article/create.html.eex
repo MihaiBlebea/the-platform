@@ -36,7 +36,7 @@
                     <% end %>
 
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Title</label>
                             <input
                                 class="form-control"
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Subtitle</label>
                             <input
                                 class="form-control"
@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Image URL</label>
                             <input
                                 class="form-control"
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Content URL</label>
                             <input
                                 class="form-control"
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Slug</label>
                             <input
                                 class="form-control"
@@ -116,7 +116,7 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Description</label>
                             <textarea
                                 class="form-control"
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Tags</label>
                             <select name="tags[]" multiple class="form-control">
                                 <%= for tag <- @tags do %>

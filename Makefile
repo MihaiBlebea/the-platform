@@ -25,10 +25,14 @@ iex:
 build-up: build up
 
 build:
-	docker-compose build
+	cd ./deploy && docker-compose build
 
 up:
-	docker-compose up -d
+	cd ./deploy && docker-compose up -d
+
+.PHONY: config
+config:
+	cd ./deploy && docker-compose config
 
 down:
-	docker-compose down
+	cd ./deploy && docker-compose down

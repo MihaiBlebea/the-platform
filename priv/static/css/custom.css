@@ -1,5 +1,5 @@
-.article-content {
-    font-size: 1em;
+.article-content p {
+    font-size: 18px;
 }
 
 .article-content h2 {
@@ -17,6 +17,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     max-width: 100%;
+    border-radius: 0.5em;
 }
 
 .article-content pre {
@@ -67,7 +68,7 @@
 }
 
 .masthead .masthead-heading {
-    font-size: 2.3rem;
+    font-size: 2.0rem;
 }
 
 .lead-box {
@@ -116,6 +117,20 @@ a.blog-item  {
     box-shadow: 0 5px 10px 0 rgb(0 0 0 / 5%);
 }
 
+.card-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.card-description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .alert-float {
     position: absolute;
     top: 80px;
@@ -143,9 +158,26 @@ td.no-wrap {
     white-space: nowrap;
 }
 
+.card-img-wrapper {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* card images for courses or articles */
+.card-img-wrapper img {
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+    width: fit-content;
+}
+
 @media (min-width: 992px) {
-    .article-content {
-        font-size: 1.1em;
+    .article-content p {
+        font-size: 21px;
     }
 
     .lead-box {

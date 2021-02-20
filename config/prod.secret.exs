@@ -4,6 +4,11 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
+System.fetch_env!("MYSQL_USER") ||
+        raise """
+        environment variable MYSQL_USER is missing.
+        """
+
 database_url = "mysql://#{ System.get_env("MYSQL_HOST") }:#{ System.get_env("MYSQL_PORT") }/#{ System.get_env("MYSQL_DATABASE") }?user=#{ System.get_env("MYSQL_USER") }&password=#{ System.get_env("MYSQL_PASSWORD") }"
 #   System.get_env("DATABASE_URL") ||
 #     raise """
@@ -20,10 +25,13 @@ config :platform, Platform.Repo,
     port: System.get_env("MYSQL_PORT"),
     pool_size: 10
 
+config :platform,
+    slack_webhook: System.get_env("SLACK_WEBHOOK")
+
 config :platform, Platform.Repo,
-  # ssl: true,
-  url: database_url,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    # ssl: true,
+    url: database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||

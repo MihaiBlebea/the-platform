@@ -24,7 +24,8 @@ config :platform,
     facebook_url: "https://www.facebook.com/blebea.serban",
     twitter_url: "https://twitter.com/MBlebea",
     linkedin_url: "https://www.linkedin.com/in/mihai-blebea-87353310b",
-    download_cv_url: "https://github.com/MihaiBlebea/mihai_blebea_cv/raw/master/Mihai_Blebea_latest_CV.pdf"
+    download_cv_url: "https://github.com/MihaiBlebea/mihai_blebea_cv/raw/master/Mihai_Blebea_latest_CV.pdf",
+    slack_webhook: System.get_env("SLACK_WEBHOOK")
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -7,6 +7,7 @@ defmodule PlatformWeb.Router do
         plug :fetch_flash
         plug :protect_from_forgery
         plug :put_secure_browser_headers
+        plug PlatformWeb.PageViewPlug
     end
 
     pipeline :api do
@@ -17,6 +18,7 @@ defmodule PlatformWeb.Router do
         pipe_through :browser
 
         get "/", PageController, :index
+        post "/contact", PageController, :contact
 
         get "/article", ArticleController, :get_create
         post "/article", ArticleController, :post_create
@@ -54,8 +56,8 @@ defmodule PlatformWeb.Router do
         import Phoenix.LiveDashboard.Router
 
         scope "/" do
-        pipe_through :browser
-        live_dashboard "/dashboard", metrics: PlatformWeb.Telemetry
+            pipe_through :browser
+            live_dashboard "/dashboard", metrics: PlatformWeb.Telemetry
         end
     end
 end

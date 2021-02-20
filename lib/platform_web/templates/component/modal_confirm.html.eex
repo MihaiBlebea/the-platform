@@ -18,6 +18,11 @@
                             </div>
 
                             <div class="d-flex justify-content-between">
+
+                                <button class="btn btn-secondary" data-dismiss="modal">
+                                    <i class="fas fa-times fa-fw"></i>
+                                    No
+                                </button>
                                 <form action="<%= @action %>" method="POST">
                                     <input type="hidden" value="<%= @token %>" name="_csrf_token"/>
                                     <input type="hidden" value="<%= @id %>" name="id"/>
@@ -27,10 +32,7 @@
                                         Yes
                                     </button>
                                 </form>
-                                <button class="btn btn-secondary" data-dismiss="modal">
-                                    <i class="fas fa-times fa-fw"></i>
-                                    No
-                                </button>
+
                             </div>
                         </div>
                     </div>

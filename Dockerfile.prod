@@ -6,20 +6,33 @@ RUN apk add --no-cache build-base npm git python
 # prepare build dir
 WORKDIR /app
 
+# set build ENV
+ENV MIX_ENV=prod
+
+ARG ARG_SECRET_KEY_BASE
+ENV SECRET_KEY_BASE=${ARG_SECRET_KEY_BASE}
+
+ARG ARG_MYSQL_USER
+ENV MYSQL_USER=${ARG_MYSQL_USER}
+
+ARG ARG_MYSQL_PASSWORD
+ENV MYSQL_PASSWORD=${ARG_MYSQL_PASSWORD}
+
+ARG ARG_MYSQL_DATABASE
+ENV MYSQL_DATABASE=${ARG_MYSQL_DATABASE}
+
+ARG ARG_MYSQL_HOST
+ENV MYSQL_HOST=${ARG_MYSQL_HOST}
+
+ARG ARG_MYSQL_PORT
+ENV MYSQL_PORT=${ARG_MYSQL_PORT}
+
+ARG ARG_SLACK_WEBHOOK
+ENV SLACK_WEBHOOK=${ARG_SLACK_WEBHOOK}
+
 # install hex + rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
-
-# set build ENV
-ENV MIX_ENV=prod
-ENV MYSQL_USER=admin
-ENV MYSQL_PASSWORD=pass
-ENV MYSQL_DATABASE=blog
-ENV MYSQL_HOST=mariadb
-ENV MYSQL_PORT=3306
-ENV SECRET_KEY_BASE=d140269c106b6d064cdd670a5aace0bbbb1400de545377a47836dbdab8104f2fdf0ab87e6b7982819d1bcc2ccf6a5f093985a0895970f01f30b0b15378a090e9
-
-RUN env
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -32,6 +45,7 @@ RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
 
 COPY priv priv
 COPY assets assets
+
 RUN npm run --prefix ./assets deploy
 RUN mix phx.digest
 
@@ -47,6 +61,40 @@ FROM alpine:3.9 AS app
 RUN apk add --no-cache openssl ncurses-libs
 
 WORKDIR /app
+
+# set build ENV
+# ENV MIX_ENV=prod
+# ENV MYSQL_USER=admin
+# ENV MYSQL_PASSWORD=pass
+# ENV MYSQL_DATABASE=blog
+# ENV MYSQL_HOST=mariadb
+# ENV MYSQL_PORT=3306
+# ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
+# ENV SLACK_WEBHOOK=${SLACK_WEBHOOK}
+# ENV MIX_ENV=prod
+
+# ARG SECRET_KEY_BASE
+# ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
+
+# ARG MYSQL_USER
+# ENV MYSQL_USER=${MYSQL_USER}
+
+# ARG MYSQL_PASSWORD
+# ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+# ARG MYSQL_DATABASE
+# ENV MYSQL_DATABASE=${MYSQL_DATABASE}
+
+# ARG MYSQL_HOST
+# ENV MYSQL_HOST=${MYSQL_HOST}
+
+# ARG MYSQL_PORT
+# ENV MYSQL_PORT=${MYSQL_PORT}
+
+# ARG SLACK_WEBHOOK
+# ENV SLACK_WEBHOOK=${SLACK_WEBHOOK}
+
+# RUN env
 
 COPY start ./bin/start
 RUN chmod +x ./bin/start

@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+    app:
+        image: the_platform:latest
+        container_name: the_platform
+        build:
+            context: ./../
+            dockerfile: Dockerfile.prod
+            args:
+                ARG_SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+                ARG_MIX_ENV: ${MIX_ENV}
+                ARG_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+                ARG_MYSQL_USER: ${MYSQL_USER}
+                ARG_MYSQL_HOST: ${MYSQL_HOST}
+                ARG_MYSQL_PORT: ${MYSQL_PORT}
+                ARG_MYSQL_DATABASE: ${MYSQL_DATABASE}
+                ARG_SLACK_WEBHOOK: ${SLACK_WEBHOOK}
+        ports:
+            - 4000:4000
+        # env_file:
+        #     - ./../.env
+        # environment:
+        #     SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+        #     MIX_ENV: ${MIX_ENV}
+        #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        #     MYSQL_USER: ${MYSQL_USER}
+        #     MYSQL_HOST: ${MYSQL_HOST}
+        #     MYSQL_PORT: ${MYSQL_PORT}
+        #     MYSQL_DATABASE: ${MYSQL_DATABASE}
+        #     SLACK_WEBHOOK: ${SLACK_WEBHOOK}
+        depends_on:
+            - mariadb
+        restart: always
+
+    mariadb:
+        image: mariadb:latest
+        container_name: mariadb
+        volumes:
+            - ./../volume/mysql:/var/lib/mysql
+        restart: always
+        ports:
+            - 3307:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_PASSWORD=pass
+            - MYSQL_USER=admin
+            - MYSQL_DATABASE=blog

@@ -1,18 +1,22 @@
 <a href="/article/<%= @article.slug %>" class="blog-item">
-    <div class="card mb-5 d-block">
-        <img src="<%= @article.image_url %>" class="card-img-top bg-primary" alt="...">
+    <div class="card mb-5">
+        <div class="card-img-wrapper">
+            <img src="<%= @article.image_url %>" class="card-img-top" alt="<%= @article.title %>">
+        </div>
         <div class="card-body">
-            <h4 class="text-uppercase"><%= @article.title %></h4>
+            <h4 class="text-uppercase card-title"><%= @article.title %></h4>
 
             <div class="mb-4">
                 <%= for tag <- @article.tags do %>
-                    <a href="/tag/<%= tag.label %>" class="badge badge-primary mb-2 mb-sm-0">#<%= tag.label %></a>
+                    <a href="/tag/<%= tag.label %>" class="badge badge-primary mb-2 mb-sm-0 mr-2">#<%= tag.label %></a>
                 <% end %>
             </div>
 
-            <div class="text-secondary">
-                <%= @article.description %>
-            </div>
+            <%= if assigns[:extended] != nil && @extended == true do %>
+                <div class="text-secondary card-description">
+                    <%= @article.description %>
+                </div>
+            <% end %>
 
             <p class="text-small text-muted d-flex justify-content-between mb-0 mt-3">
                 <span class="mr-3"><i class="fas fa-clock mr-1" aria-hidden="true"></i> <%= format_date(@article.inserted_at) %></span>

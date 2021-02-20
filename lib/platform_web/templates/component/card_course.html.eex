@@ -2,9 +2,9 @@
     <div class="card mb-5 d-block">
         <img src="https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png" class="card-img-top bg-primary" alt="...">
         <div class="card-body">
-            <h4 class="text-uppercase"><%= @course.title %></h4>
+            <h4 class="text-uppercase card-title"><%= @course.title %></h4>
 
-            <div class="text-secondary">
+            <div class="text-secondary card-description">
                 <%= @course.description %>
             </div>
         </div>
