@@ -6,7 +6,7 @@ services:
         container_name: the_platform
         build:
             context: ./../
-            dockerfile: Dockerfile.prod
+            dockerfile: Dockerfile
             args:
                 ARG_SECRET_KEY_BASE: ${SECRET_KEY_BASE}
                 ARG_MIX_ENV: ${MIX_ENV}

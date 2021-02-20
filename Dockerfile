@@ -62,40 +62,6 @@ RUN apk add --no-cache openssl ncurses-libs
 
 WORKDIR /app
 
-# set build ENV
-# ENV MIX_ENV=prod
-# ENV MYSQL_USER=admin
-# ENV MYSQL_PASSWORD=pass
-# ENV MYSQL_DATABASE=blog
-# ENV MYSQL_HOST=mariadb
-# ENV MYSQL_PORT=3306
-# ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
-# ENV SLACK_WEBHOOK=${SLACK_WEBHOOK}
-# ENV MIX_ENV=prod
-
-# ARG SECRET_KEY_BASE
-# ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
-
-# ARG MYSQL_USER
-# ENV MYSQL_USER=${MYSQL_USER}
-
-# ARG MYSQL_PASSWORD
-# ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
-
-# ARG MYSQL_DATABASE
-# ENV MYSQL_DATABASE=${MYSQL_DATABASE}
-
-# ARG MYSQL_HOST
-# ENV MYSQL_HOST=${MYSQL_HOST}
-
-# ARG MYSQL_PORT
-# ENV MYSQL_PORT=${MYSQL_PORT}
-
-# ARG SLACK_WEBHOOK
-# ENV SLACK_WEBHOOK=${SLACK_WEBHOOK}
-
-# RUN env
-
 COPY start ./bin/start
 RUN chmod +x ./bin/start
 
@@ -108,5 +74,7 @@ USER nobody:nobody
 COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/platform ./
 
 ENV HOME=/app
+
+EXPOSE 4000
 
 CMD ["bin/platform", "start"]
