@@ -1,4 +1,5 @@
 #!/bin/sh
 
 ./platform eval "PlatformRelease.migrate"
-./platform eval "PlatformRelease.seed"
+./platform eval "PlatformRelease.rollback"
+./platform eval "PlatformRelease.seed(Elixir.Platform.Repo, \"seeds.exs\")"

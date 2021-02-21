@@ -16,6 +16,12 @@ defmodule PlatformRelease do
         {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :down, to: version))
     end
 
+    @spec rollback(atom) :: {:ok, any, any}
+    def rollback(repo) do
+        load_app()
+        {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :down, all: true))
+    end
+
     defp repos do
         Application.fetch_env!(@app, :ecto_repos)
     end
