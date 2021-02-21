@@ -1,7 +1,7 @@
 defmodule PlatformRelease do
     @app :platform
 
-    @seed_file "seed.exs"
+    @seed_file "seeds.exs"
 
     alias Platform.Article
 
