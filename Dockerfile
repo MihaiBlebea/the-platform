@@ -65,8 +65,6 @@ WORKDIR /app
 COPY start ./bin/start
 RUN chmod +x ./bin/start
 
-COPY seed ./bin/seed
-
 RUN chown nobody:nobody /app
 
 USER nobody:nobody

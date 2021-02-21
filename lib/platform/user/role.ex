@@ -2,7 +2,7 @@ defmodule Platform.Role do
     use Ecto.Schema
     import Ecto.Changeset
 
-    alias Platform.Repo
+    alias Platform.{Repo, User}
 
     @type t() :: %__MODULE__{}
 
@@ -12,6 +12,8 @@ defmodule Platform.Role do
         field :label, :string
 
         timestamps()
+
+        has_many :users, User
     end
 
     @spec changeset(map, map) :: Ecto.Changeset.t()

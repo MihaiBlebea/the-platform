@@ -9,7 +9,7 @@ drop:
 
 .PHONY: seed
 seed:
-	mix seed users roles articles courses lessons tags article_tag
+	mix seed
 
 refresh: drop create-db migrate seed
 

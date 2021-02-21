@@ -162,6 +162,8 @@ td.no-wrap {
     height: 300px;
     overflow: hidden;
     position: relative;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
 }
 
 /* card images for courses or articles */

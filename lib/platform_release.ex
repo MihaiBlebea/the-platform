@@ -1,8 +1,7 @@
 defmodule PlatformRelease do
     @app :platform
 
-    @seed_file "seeds.exs"
-
+    @spec migrate :: list
     def migrate do
         load_app()
 
@@ -11,6 +10,7 @@ defmodule PlatformRelease do
         end
     end
 
+    @spec rollback(atom, any) :: {:ok, any, any}
     def rollback(repo, version) do
         load_app()
         {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :down, to: version))

@@ -2,6 +2,8 @@ defmodule Platform.User do
     use Ecto.Schema
     import Ecto.Changeset
 
+    alias Platform.Role
+
     @type t() :: %__MODULE__{}
 
     schema "users" do
@@ -9,9 +11,10 @@ defmodule Platform.User do
         field :marketing_consent, :boolean, default: false
         field :name, :string
         field :password, :string
-        field :role_id, :integer
 
         timestamps()
+
+        belongs_to :role, Role, foreign_key: :role_id
     end
 
     @spec changeset(map, map) :: Ecto.Changeset.t()
