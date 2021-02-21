@@ -3,8 +3,6 @@ defmodule PlatformRelease do
 
     @seed_file "seeds.exs"
 
-    alias Platform.Article
-
     def migrate do
         load_app()
 
@@ -26,23 +24,21 @@ defmodule PlatformRelease do
         Application.load(@app)
     end
 
-    @spec seed() :: list
-    def seed() do
+    @spec seed(Ecto.Repo.t(), binary) :: :ok | {:error, any}
+    def seed(repo, file_name) do
         load_app()
 
-        for repo <- repos() do
-            case Ecto.Migrator.with_repo(repo, &eval_seed(&1, @seed_file)) do
-                {:ok, {:ok, _fun_return}, _apps} ->
-                    :ok
+        case Ecto.Migrator.with_repo(repo, &eval_seed(&1, file_name)) do
+            {:ok, {:ok, _fun_return}, _apps} ->
+                :ok
 
-                {:ok, {:error, reason}, _apps} ->
-                    IO.warn(reason)
-                    {:error, reason}
+            {:ok, {:error, reason}, _apps} ->
+                IO.warn(reason)
+                {:error, reason}
 
-                {:error, term} ->
-                    IO.warn(term, [])
-                    {:error, term}
-            end
+            {:error, term} ->
+                IO.warn(term, [])
+                {:error, term}
         end
     end
 
