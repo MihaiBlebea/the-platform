@@ -35,11 +35,7 @@ defmodule PlatformWeb.ViewHelpers do
     def fetch_content(nil), do: nil
 
     def fetch_content(url) do
-        {:ok, %{body: body, status_code: code}} = url |> HTTPoison.get
-        case code do
-            200 -> body
-            _ -> nil
-        end
+        Platform.Github.fetch_markdown_content(url)
     end
 
     @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t()

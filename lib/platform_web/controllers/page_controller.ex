@@ -37,9 +37,9 @@ defmodule PlatformWeb.PageController do
     end
 
     @spec contact(Plug.Conn.t(), map) :: Plug.Conn.t()
-    def contact(conn, %{"name" => _name, "email" => _email, "phone" => _phone, "message" => message}) do
+    def contact(conn, %{"name" => name, "email" => email, "phone" => phone, "message" => message}) do
 
-        case Platform.Slack.send_text(message) do
+        case Platform.Slack.contact_form(name, email, phone, message) do
             :ok ->
                 conn
                 |> put_flash(:info, "Your message has been sent")

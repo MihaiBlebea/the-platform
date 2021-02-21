@@ -21,7 +21,8 @@ config :platform, Platform.Repo,
     pool_size: 10
 
 config :platform,
-    slack_webhook: System.get_env("SLACK_WEBHOOK")
+    slack_webhook: System.get_env("SLACK_WEBHOOK"),
+    github_token: System.get_env("GITHUB_TOKEN")
 
 config :platform, Platform.Repo,
     # ssl: true,

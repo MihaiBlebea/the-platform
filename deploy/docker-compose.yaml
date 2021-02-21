@@ -16,19 +16,9 @@ services:
                 ARG_MYSQL_PORT: ${MYSQL_PORT}
                 ARG_MYSQL_DATABASE: ${MYSQL_DATABASE}
                 ARG_SLACK_WEBHOOK: ${SLACK_WEBHOOK}
+                ARG_GITHUB_TOKEN: ${GITHUB_TOKEN}
         ports:
             - 4000:4000
-        # env_file:
-        #     - ./../.env
-        # environment:
-        #     SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-        #     MIX_ENV: ${MIX_ENV}
-        #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-        #     MYSQL_USER: ${MYSQL_USER}
-        #     MYSQL_HOST: ${MYSQL_HOST}
-        #     MYSQL_PORT: ${MYSQL_PORT}
-        #     MYSQL_DATABASE: ${MYSQL_DATABASE}
-        #     SLACK_WEBHOOK: ${SLACK_WEBHOOK}
         depends_on:
             - mariadb
         restart: always

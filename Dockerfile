@@ -30,6 +30,9 @@ ENV MYSQL_PORT=${ARG_MYSQL_PORT}
 ARG ARG_SLACK_WEBHOOK
 ENV SLACK_WEBHOOK=${ARG_SLACK_WEBHOOK}
 
+ARG ARG_GITHUB_TOKEN
+ENV GITHUB_TOKEN=${ARG_GITHUB_TOKEN}
+
 # install hex + rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
