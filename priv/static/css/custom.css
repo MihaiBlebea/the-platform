@@ -177,6 +177,11 @@ td.no-wrap {
     width: fit-content;
 }
 
+.main-article-img {
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+}
+
 @media (min-width: 992px) {
     .article-content p {
         font-size: 21px;

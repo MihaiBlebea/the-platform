@@ -3,6 +3,10 @@ defmodule PlatformWeb.ArticleController do
 
     alias Platform.{Article, Tag}
 
+    plug PlatformWeb.MemberPlug when action in [
+        :get_create, :post_create, :get_update, :post_update, :delete
+    ]
+
     @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
     def index(conn, %{"slug" => article_slug}) do
         case Article.get_by_slug(article_slug) do
@@ -12,7 +16,10 @@ defmodule PlatformWeb.ArticleController do
                 |> put_view(PlatformWeb.ErrorView)
                 |> render(:"404")
             article ->
-                related_articles = Article.all |> Enum.slice(0, 3)
+                related_articles =
+                    Article.all
+                    |> Enum.filter(fn (art) -> art.id !== article.id end)
+                    |> Enum.slice(0, 3)
                 render(conn, "index.html",
                     [
                         article: article,

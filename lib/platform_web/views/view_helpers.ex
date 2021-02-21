@@ -48,10 +48,7 @@ defmodule PlatformWeb.ViewHelpers do
     @spec has_role?(Plug.Conn.t(), atom) :: false | true
     def has_role?(conn, role_label) when is_atom(role_label) do
         user = fetch_auth_user(conn)
-        case Role.get_by_id(user.role_id) do
-            nil -> false
-            role -> String.to_atom(role.label) === role_label
-        end
+        String.to_atom(user.role.label) === role_label
     end
 
     @spec format_date(Date.t()) :: binary

@@ -27,6 +27,7 @@ defmodule PlatformWeb.ComponentView do
         end
     end
 
+    @spec text_color(any) :: binary
     def text_color(theme) do
         case theme === :dark do
             true -> "text-secondary"
@@ -34,6 +35,7 @@ defmodule PlatformWeb.ComponentView do
         end
     end
 
+    @spec divider_color(any) :: nil | binary
     def divider_color(theme) do
         case theme === :dark do
             true -> nil

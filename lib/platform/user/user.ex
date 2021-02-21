@@ -2,7 +2,7 @@ defmodule Platform.User do
     use Ecto.Schema
     import Ecto.Changeset
 
-    alias Platform.Role
+    alias Platform.{Repo, Role}
 
     @type t() :: %__MODULE__{}
 
@@ -30,14 +30,14 @@ defmodule Platform.User do
     @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
     def save(user) do
         changeset(%__MODULE__{}, user)
-        |> Platform.Repo.insert
+        |> Repo.insert
     end
 
     @spec get_by_id(number) :: nil | __MODULE__.t()
-    def get_by_id(id), do: Platform.Repo.get_by(__MODULE__, id: id)
+    def get_by_id(id), do: Repo.get_by(__MODULE__, id: id) |> Repo.preload(:role)
 
-    @spec get_by_id(binary) :: nil | __MODULE__.t()
-    def get_by_email(email), do: Platform.Repo.get_by(__MODULE__, email: email)
+    @spec get_by_email(binary) :: nil | __MODULE__.t()
+    def get_by_email(email), do: Repo.get_by(__MODULE__, email: email) |> Repo.preload(:role)
 
     defp hash_password(%{valid?: false} = changeset), do: changeset
 

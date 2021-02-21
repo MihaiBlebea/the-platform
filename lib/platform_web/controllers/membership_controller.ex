@@ -3,27 +3,7 @@ defmodule PlatformWeb.MembershipController do
 
     alias Platform.{User, Role, Course, Lesson}
 
-    plug :check_auth when action in [:index, :get_course, :get_lesson]
-
-    defp check_auth(conn, _args) do
-        if user_id = get_session(conn, :auth_user_id) do
-            auth_user = User.get_by_id(user_id)
-
-            case auth_user do
-                nil ->
-                    conn
-                    |> put_flash(:error, "You need to be signed in to access this page")
-                    |> redirect(to: "/member/login")
-                    |> halt()
-                user -> conn |> assign(:auth_user, user)
-            end
-        else
-            conn
-            |> put_flash(:error, "You need to be signed in to access this page")
-            |> redirect(to: "/member/login")
-            |> halt()
-        end
-    end
+    plug PlatformWeb.MemberPlug when action in [:index, :get_course, :get_lesson]
 
     @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
     def index(conn, _params) do

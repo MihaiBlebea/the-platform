@@ -4,7 +4,6 @@ defmodule PlatformWeb.MembershipView do
     @spec lesson_slug(Platform.Course.t(), Platform.Lesson.t()) :: binary
     def lesson_slug(course, lesson), do: "/member/" <> course.slug <> "/" <> lesson.slug
 
-
     @spec active_lesson_slug?(Plug.Conn.t(), Platform.Course.t(), Platform.Lesson.t()) :: bool
     def active_lesson_slug?(conn, course, lesson), do: conn.request_path === lesson_slug(course, lesson)
 

@@ -20,7 +20,7 @@
     <div class="container">
 
         <div class="row justify-content-center mb-5">
-            <img class="col-lg-8 col-md-8 w-100" src="<%= @article.image_url %>">
+            <img class="col-lg-12 col-md-12 w-100 main-article-img" src="<%= @article.image_url %>">
         </div>
 
         <div class="row mb-5">
