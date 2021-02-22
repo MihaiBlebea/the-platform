@@ -17,7 +17,7 @@ defmodule PlatformWeb.ArticleController do
                 |> render(:"404")
             article ->
                 related_articles =
-                    Article.all
+                    Article.all_active
                     |> Enum.filter(fn (art) -> art.id !== article.id end)
                     |> Enum.slice(0, 3)
                 render(conn, "index.html",
