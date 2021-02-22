@@ -5,7 +5,7 @@ defmodule PlatformWeb.TagController do
 
     alias Platform.{Article, Tag}
 
-    @articles_per_page 2
+    @articles_per_page 10
 
     @spec index(Plug.Conn.t(), map) :: Plug.Conn.t()
     def index(conn, %{"slug" => slug}) do

@@ -5,7 +5,7 @@ defmodule PlatformWeb.PageController do
 
     alias Platform.{Course, Article}
 
-    @articles_per_page 2
+    @articles_per_page 10
 
     @spec index(Plug.Conn.t(), map) :: Plug.Conn.t()
     def index(conn, _params) do
