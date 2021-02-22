@@ -3,3 +3,4 @@
 ./platform eval "PlatformRelease.migrate"
 ./platform eval "PlatformRelease.rollback(Elixir.Platform.Repo)"
 ./platform eval "PlatformRelease.seed(Elixir.Platform.Repo, \"seeds.exs\")"
+./platform eval "PlatformRelease.seed(Elixir.Platform.Repo, \"prod.exs\")"

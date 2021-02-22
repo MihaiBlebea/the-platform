@@ -4,8 +4,8 @@ Article.save(%{
     title: "Build a concurrent, concurrent server that can handle millions of requests with Golang",
     subtitle: "Just a subtitle",
     slug: "golang-concurrent-multithreaded-server-with-cache",
-    image_url: "https://thetravelvertical.com/wp-content/uploads/2019/11/dog-3822183_1920-1024x608.jpg",
-    description: "This is the second article",
+    image_url: "https://kazsource.com/wp-content/uploads/2016/10/Wheres-Waldo.jpg",
+    description: "As a bonus, we will try to code everything in under 100 lines. This is just because I saw a lot of comments on different forums saying that Go is too verbouse. Let’s put that to the challenge.",
     content_url: "https://raw.githubusercontent.com/MihaiBlebea/mihaiblebea-content/master/golang_concurrency_cache_website.md",
     active: false
 })
@@ -14,8 +14,8 @@ Article.save(%{
     title: "Build a Go Quiz Game with concurrent jobs from scratch in 6 easy steps",
     subtitle: "Just a subtitle",
     slug: "go-concurrent-quiz-game",
-    image_url: "https://www.sbs.com.au/guide/sites/sbs.com.au.guide/files/styles/full/public/8-out-of-10-cats.jpg",
-    description: "Coding a game that involves concurrency must be sooooo complicated... right? Not really! It is quite easy by using Go routines system. Let me show you how to do it.",
+    image_url: "https://cdn.dribbble.com/users/3421553/screenshots/11589226/dual_zenz2.png",
+    description: "As a bonus, we will try to code everything in under 100 lines. This is just because I saw a lot of comments on different forums saying that Go is too verbouse. Let’s put that to the challenge.",
     content_url: "https://raw.githubusercontent.com/MihaiBlebea/mihaiblebea-content/master/go_concurrent_quiz_game.md",
     active: true
 })
