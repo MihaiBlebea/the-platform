@@ -2,8 +2,6 @@ defmodule PlatformWeb.ViewHelpers do
 
     alias Platform.User
 
-    alias Platform.Role
-
     @spec render_component(binary, list) :: any
     def render_component(component, assigns \\ []) do
         Phoenix.View.render(PlatformWeb.ComponentView, component, assigns)
@@ -34,9 +32,7 @@ defmodule PlatformWeb.ViewHelpers do
     @spec fetch_content(nil | binary) :: nil | binary
     def fetch_content(nil), do: nil
 
-    def fetch_content(url) do
-        Platform.Github.fetch_markdown_content(url)
-    end
+    def fetch_content(url), do: Platform.Github.fetch_markdown_content(url)
 
     @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t()
     def fetch_auth_user(conn), do:  conn.assigns[:auth_user]

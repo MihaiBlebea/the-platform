@@ -24,8 +24,7 @@ config :platform,
     facebook_url: "https://www.facebook.com/blebea.serban",
     twitter_url: "https://twitter.com/MBlebea",
     linkedin_url: "https://www.linkedin.com/in/mihai-blebea-87353310b",
-    download_cv_url: "https://github.com/MihaiBlebea/mihai_blebea_cv/raw/master/Mihai_Blebea_latest_CV.pdf",
-    slack_webhook: System.get_env("SLACK_WEBHOOK")
+    download_cv_url: "https://github.com/MihaiBlebea/mihai_blebea_cv/raw/master/Mihai_Blebea_latest_CV.pdf"
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -34,6 +33,17 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :platform, Platform.Scheduler,
+    jobs: [
+        [
+            schedule: "0 8 * * *",
+            run_strategy: Quantum.RunStrategy.Local,
+            task: {
+                Platform.Report, :send_notification, []
+            }
+        ]
+    ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

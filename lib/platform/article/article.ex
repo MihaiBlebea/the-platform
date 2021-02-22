@@ -1,7 +1,7 @@
 defmodule Platform.Article do
     use Ecto.Schema
 
-    import Ecto.Changeset
+    import Ecto.{Changeset, Query}
 
     alias Platform.{Article, Tag, Repo}
 
@@ -14,6 +14,7 @@ defmodule Platform.Article do
         field :slug, :string
         field :subtitle, :string
         field :title, :string
+        field :active, :boolean, default: false
 
         timestamps()
 
@@ -24,8 +25,8 @@ defmodule Platform.Article do
     @doc false
     def changeset(article, attrs) do
         article
-        |> cast(attrs, [:title, :subtitle, :description, :image_url, :content_url, :slug])
-        |> validate_required([:title, :subtitle, :description, :image_url, :content_url, :slug])
+        |> cast(attrs, [:title, :subtitle, :description, :image_url, :content_url, :slug, :active])
+        |> validate_required([:title, :subtitle, :description, :image_url, :content_url, :slug, :active])
     end
 
     @spec update(integer, map) :: {:ok, __MODULE__.t()} | {:error, any}
@@ -68,6 +69,11 @@ defmodule Platform.Article do
         Repo.get_by(__MODULE__, slug: slug) |> Repo.preload(:tags)
     end
 
+    @spec get_by_slug_active(any) :: nil | Platform.Article.t()
+    def get_by_slug_active(slug) do
+        Repo.get_by(__MODULE__, slug: slug, active: true) |> Repo.preload(:tags)
+    end
+
     @spec get_by_id(integer) :: nil | Platform.Article.t()
     def get_by_id(id) do
         Repo.get_by(__MODULE__, id: id) |> Repo.preload(:tags)
@@ -84,6 +90,11 @@ defmodule Platform.Article do
 
     @spec all :: [] | [Platform.Article.t()]
     def all(), do: Repo.all(__MODULE__) |> Repo.preload(:tags)
+
+    @spec all_active :: [] | [Platform.Article.t()]
+    def all_active() do
+        from(a in Platform.Article, where: a.active == true) |> Repo.all |> Repo.preload(:tags)
+    end
 
     @spec delete(__MODULE__.t()) :: {:ok, __MODULE__.t()} | {:error, Ecto.Changeset.t()}
     def delete(%__MODULE__{} = article), do: article |> Repo.delete

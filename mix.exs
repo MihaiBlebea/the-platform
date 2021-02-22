@@ -48,6 +48,7 @@ defmodule Platform.MixProject do
             {:earmark, "~> 1.4.0"},
             {:httpoison, "~> 1.6", override: true},
             {:bcrypt_elixir, "~> 2.0"},
+            {:quantum, "~> 3.0"},
         ]
     end
 

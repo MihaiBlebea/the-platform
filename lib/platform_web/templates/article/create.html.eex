@@ -146,6 +146,26 @@
                         </div>
                     </div>
 
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
+                            <label>Is article active?</label>
+                            <select name="active" class="form-control">
+                                <option
+                                    value="true"
+                                    <%= if is_set?(assigns[:update_article]) and @update_article.active == true, do: "selected" %>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                    value="false"
+                                    <%= if is_set?(assigns[:update_article]) and @update_article.active == false, do: "selected" %>
+                                >
+                                    No
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
                     <br />
                     <div class="form-group">
                         <button class="btn btn-primary btn-xl" type="submit">

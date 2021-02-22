@@ -1,6 +1,4 @@
 defmodule PlatformWeb.PageViewPlug do
-    import Plug.Conn
-
     alias Platform.PageView
 
     @spec init(any) :: any

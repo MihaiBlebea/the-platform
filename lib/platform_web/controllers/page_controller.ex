@@ -9,7 +9,7 @@ defmodule PlatformWeb.PageController do
 
     @spec index(Plug.Conn.t(), map) :: Plug.Conn.t()
     def index(conn, _params) do
-        articles = Article.all
+        articles = Article.all_active
         current_page = conn |> Pagination.get_current_page
         meta = articles |> Pagination.paginate(@articles_per_page, current_page)
         case current_page < 1 or current_page > Pagination.get_total_pages(articles, @articles_per_page) do

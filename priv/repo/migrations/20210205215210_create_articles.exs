@@ -9,6 +9,7 @@ defmodule Platform.Repo.Migrations.CreateArticles do
             add :image_url, :string
             add :content_url, :string
             add :slug, :string
+            add :active, :boolean
 
             timestamps()
         end

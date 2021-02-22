@@ -14,9 +14,9 @@ defmodule Platform.Application do
             # Start the PubSub system
             {Phoenix.PubSub, name: Platform.PubSub},
             # Start the Endpoint (http/https)
-            PlatformWeb.Endpoint
+            PlatformWeb.Endpoint,
             # Start a worker by calling: Platform.Worker.start_link(arg)
-            # {Platform.Worker, arg}
+            Platform.Scheduler
         ]
 
         # See https://hexdocs.pm/elixir/Supervisor.html

@@ -4,12 +4,12 @@ defmodule PlatformWeb.ArticleController do
     alias Platform.{Article, Tag}
 
     plug PlatformWeb.MemberPlug when action in [
-        :get_create, :post_create, :get_update, :post_update, :delete
+        :list, :get_create, :post_create, :get_update, :post_update, :delete
     ]
 
     @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
     def index(conn, %{"slug" => article_slug}) do
-        case Article.get_by_slug(article_slug) do
+        case Article.get_by_slug_active(article_slug) do
             nil ->
                 conn
                 |> put_status(:not_found)
@@ -48,7 +48,8 @@ defmodule PlatformWeb.ArticleController do
         "image_url" => _image_url,
         "content_url" => _content_url,
         "slug" => _slug,
-        "description" => _description} = request) do
+        "description" => _description,
+        "active" => _active} = request) do
             case Article.save(request) do
                 {:ok, article} ->
                     article.id |> Article.update_tags_by_ids(Map.get(request, "tags", nil))
@@ -85,7 +86,8 @@ defmodule PlatformWeb.ArticleController do
         "image_url" => _image_url,
         "content_url" => _content_url,
         "slug" => _slug,
-        "description" => _description} = request) do
+        "description" => _description,
+        "active" => _active} = request) do
             case Article.update(id, request) do
                 {:ok, article} ->
                     article.id |> Article.update_tags_by_ids(Map.get(request, "tags", nil))
