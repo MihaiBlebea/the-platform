@@ -53,22 +53,6 @@
 
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-4 pb-2">
-                            <label>Subtitle</label>
-                            <input
-                                class="form-control"
-                                name="subtitle"
-                                type="text"
-                                placeholder="Subtitle"
-                                required="required"
-                                data-validation-required-message="Please enter a subtitle."
-                                value="<%= if assigns[:update_article], do: @update_article.subtitle %>"
-                            />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-4 pb-2">
                             <label>Image URL</label>
                             <input
                                 class="form-control"

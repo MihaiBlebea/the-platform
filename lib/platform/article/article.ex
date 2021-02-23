@@ -12,7 +12,6 @@ defmodule Platform.Article do
         field :image_url, :string
         field :description, :string
         field :slug, :string
-        field :subtitle, :string
         field :title, :string
         field :active, :boolean, default: false
 
@@ -25,8 +24,8 @@ defmodule Platform.Article do
     @doc false
     def changeset(article, attrs) do
         article
-        |> cast(attrs, [:title, :subtitle, :description, :image_url, :content_url, :slug, :active])
-        |> validate_required([:title, :subtitle, :description, :image_url, :content_url, :slug, :active])
+        |> cast(attrs, [:title, :description, :image_url, :content_url, :slug, :active])
+        |> validate_required([:title, :description, :image_url, :content_url, :slug, :active])
     end
 
     @spec update(integer, map) :: {:ok, __MODULE__.t()} | {:error, any}

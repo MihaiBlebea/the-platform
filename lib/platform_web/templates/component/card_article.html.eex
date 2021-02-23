@@ -8,7 +8,7 @@
 
             <div class="mb-4">
                 <%= for tag <- @article.tags do %>
-                    <a href="/tag/<%= tag.label %>" class="badge badge-primary mb-2 mb-sm-0 mr-2">#<%= tag.label %></a>
+                    <a href="/tag/<%= tag.label %>" class="badge badge-primary mb-2 mb-sm-0 mr-2"><%= tag.label %></a>
                 <% end %>
             </div>
 

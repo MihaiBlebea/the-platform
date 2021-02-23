@@ -44,7 +44,6 @@ defmodule PlatformWeb.ArticleController do
     @spec post_create(Plug.Conn.t(), map) :: Plug.Conn.t()
     def post_create(conn, %{
         "title" => _title,
-        "subtitle" => _subtitle,
         "image_url" => _image_url,
         "content_url" => _content_url,
         "slug" => _slug,
@@ -82,7 +81,6 @@ defmodule PlatformWeb.ArticleController do
     def post_update(conn, %{
         "id" => id,
         "title" => _title,
-        "subtitle" => _subtitle,
         "image_url" => _image_url,
         "content_url" => _content_url,
         "slug" => _slug,

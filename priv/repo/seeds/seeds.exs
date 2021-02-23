@@ -2,7 +2,6 @@ alias Platform.{Article, Tag, ArticleTag, User, Role, Course, Lesson}
 
 Article.save(%{
     title: "Build a concurrent, concurrent server that can handle millions of requests with Golang",
-    subtitle: "Just a subtitle",
     slug: "golang-concurrent-multithreaded-server-with-cache",
     image_url: "https://kazsource.com/wp-content/uploads/2016/10/Wheres-Waldo.jpg",
     description: "As a bonus, we will try to code everything in under 100 lines. This is just because I saw a lot of comments on different forums saying that Go is too verbouse. Let’s put that to the challenge.",
@@ -12,7 +11,6 @@ Article.save(%{
 
 Article.save(%{
     title: "Build a Go Quiz Game with concurrent jobs from scratch in 6 easy steps",
-    subtitle: "Just a subtitle",
     slug: "go-concurrent-quiz-game",
     image_url: "https://cdn.dribbble.com/users/3421553/screenshots/11589226/dual_zenz2.png",
     description: "As a bonus, we will try to code everything in under 100 lines. This is just because I saw a lot of comments on different forums saying that Go is too verbouse. Let’s put that to the challenge.",
@@ -22,7 +20,6 @@ Article.save(%{
 
 Article.save(%{
     title: "Github for absolute beginners - How to get started with your first repo?",
-    subtitle: "Just a subtitle",
     slug: "github-for-beginners-first-repository",
     image_url: "https://portswigger.net/cms/images/54/14/6efb9bc5d143-article-190612-github-body-text.jpg",
     description: "If you just started to code, then git is not for you... That is what they told me. But does it still apply today?",
@@ -32,7 +29,6 @@ Article.save(%{
 
 Article.save(%{
     title: "How to build infrastructure with code, using Terraform with Kubernetes",
-    subtitle: "Just a subtitle",
     slug: "terraform-with-kubernetes-infrastructure-as-code-part-1",
     image_url: "https://www.terraform.io/assets/images/og-image-large-e60c82fe.png",
     description: "What is this infrastructure as code all about? If you ever had to deal with infrastructure built by somebody else and passed onto you without documentation, then this article is for you.",
