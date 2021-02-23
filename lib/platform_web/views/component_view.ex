@@ -11,14 +11,14 @@ defmodule PlatformWeb.ComponentView do
         case signed_in?(conn) do
             true ->
                 default ++ [
-                    %{label: "Courses", url: "/member", scrollable: false},
+                    # %{label: "Courses", url: "/member", scrollable: false},
                     %{label: "About", url: "/#about", scrollable: true},
                     %{label: "Contact", url: "/#contact", scrollable: true},
                     %{label: "Logout", url: "/member/logout", scrollable: false}
                 ]
             false ->
                 default ++ [
-                    %{label: "Courses", url: "/#courses", scrollable: true},
+                    # %{label: "Courses", url: "/#courses", scrollable: true},
                     %{label: "About", url: "/#about", scrollable: true},
                     %{label: "Contact", url: "/#contact", scrollable: true},
                     %{label: "Register", url: "/member/register", scrollable: false},
