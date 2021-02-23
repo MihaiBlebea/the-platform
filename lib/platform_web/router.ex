@@ -38,12 +38,16 @@ defmodule PlatformWeb.Router do
         get "/member", MembershipController, :index
         get "/member/:course", MembershipController, :get_course
         get "/member/:course/:lesson", MembershipController, :get_lesson
+
+        get "/admin", AdminController, :index
     end
 
     # Other scopes may use custom stacks.
-    # scope "/api", PlatformWeb do
-    #   pipe_through :api
-    # end
+    scope "/api/v1", PlatformWeb do
+        pipe_through :api
+
+        get "/page-views-dashboard", ApiController, :page_views_dashboard
+    end
 
     # Enables LiveDashboard only for development
     #

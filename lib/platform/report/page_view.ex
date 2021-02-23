@@ -27,9 +27,20 @@ defmodule Platform.PageView do
         |> Platform.Repo.insert
     end
 
+    @spec all :: [] | [Platform.PageView.t()]
+    def all(), do: Repo.all(__MODULE__)
+
     @spec get_by_date_interval(any, any) :: Ecto.Query.t()
     def get_by_date_interval(start_datetime, end_datetime) do
         from(pw in Platform.PageView, where: pw.inserted_at >= ^start_datetime and pw.inserted_at <= ^end_datetime)
+        |> Repo.all
+    end
+
+    @spec all_count_by_day() :: [%{date: Date, count: integer}]
+    def all_count_by_day() do
+        from(pw in Platform.PageView)
+        |> group_by([e], fragment("DAY(?)", e.inserted_at))
+        |> select([e], %{date: fragment("DATE(?)", e.inserted_at), count: count(e.id)})
         |> Repo.all
     end
 end
