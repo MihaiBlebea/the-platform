@@ -34,13 +34,19 @@ defmodule PlatformWeb.ViewHelpers do
 
     def fetch_content(url), do: Platform.Github.fetch_markdown_content(url)
 
-    @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t()
-    def fetch_auth_user(conn), do:  conn.assigns[:auth_user]
+    @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t() | nil
+    def fetch_auth_user(conn), do: conn.assigns[:auth_user]
 
     @spec has_role?(Plug.Conn.t(), atom) :: false | true
     def has_role?(conn, role_label) when is_atom(role_label) do
-        user = fetch_auth_user(conn)
-        String.to_atom(user.role.label) === role_label
+        case fetch_auth_user(conn) do
+            nil -> false
+            user ->
+                case Map.get(user, :role, nil) do
+                    nil -> false
+                    role -> String.to_atom(role.label) === role_label
+                end
+        end
     end
 
     @spec format_date(Date.t()) :: binary

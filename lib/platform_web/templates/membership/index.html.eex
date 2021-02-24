@@ -28,16 +28,3 @@
         </div>
     </div>
 </section>
-
-<%= if has_role? @conn, :admin do %>
-<section class="page-section">
-    <div class="container">
-
-        <%= render_component "title_section.html", title: "Admin area" %>
-
-        <div class="d-flex justify-content-center">
-            <a class="btn btn-primary btn-lg" href="/article/list"><i class="fas fa-sticky-note mr-2" aria-hidden="true"></i> Articles</a>
-        </div>
-    </div>
-</section>
-<% end %>

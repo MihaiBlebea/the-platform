@@ -36,7 +36,11 @@
                     <tbody>
                         <%= for article <- @articles do %>
                         <tr>
-                            <td><%= article.title %></td>
+                            <td>
+                                <a href="/article/<%= article.slug %>" target="_blank">
+                                    <%= article.title %>
+                                </a>
+                            </td>
                             <td>/<%= article.slug %></td>
                             <td class="no-wrap"><%= format_date(article.inserted_at) %></td>
                             <td>
