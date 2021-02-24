@@ -19,19 +19,46 @@
 <section class="page-section">
     <div class="container">
 
-        <div class="row">
+        <div class="d-flex justify-content-center mb-5">
+            <a class="btn btn-primary btn-lg" href="/article/list"><i class="fas fa-sticky-note mr-2" aria-hidden="true"></i> Articles</a>
+        </div>
+
+        <div class="row mb-5">
             <canvas id="page-views-dashboard"></canvas>
         </div>
-    </div>
-</section>
 
-<section class="page-section">
-    <div class="container">
+        <div class="row">
+            <!-- Daily top page views -->
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Page views today</h4>
+                        <ul class="list-group list-group-flush">
+                            <%= for page_view <- @page_views do %>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div><%= page_view.url %></div>
+                                    <div><%= page_view.count %> views</div>
+                                </li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-        <%= render_component "title_section.html", title: "Settings / CMS" %>
-
-        <div class="d-flex justify-content-center">
-            <a class="btn btn-primary btn-lg" href="/article/list"><i class="fas fa-sticky-note mr-2" aria-hidden="true"></i> Articles</a>
+            <!-- Daily user signups -->
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Stats today</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>User registrations</div>
+                                <div><%= @registrations.count %></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
