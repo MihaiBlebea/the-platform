@@ -3,7 +3,7 @@ defmodule Platform.PageView do
 
     import Ecto.{Changeset, Query}
 
-    alias Platform.{Platform, Repo, ReportHelper}
+    alias Platform.{PageView, Repo, ReportHelper}
 
     @type t() :: %__MODULE__{}
 

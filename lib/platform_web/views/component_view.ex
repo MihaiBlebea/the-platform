@@ -3,10 +3,13 @@ defmodule PlatformWeb.ComponentView do
 
     @spec navigations(Plug.Conn.t()) :: [map]
     def navigations(conn) do
-        cond do
-            signed_in?(conn) == true && has_role?(conn, :admin) == false -> navigation_for_member()
-            signed_in?(conn) == true && has_role?(conn, :admin) == true -> navigation_for_admin()
-            true -> navigation_for_visitor()
+        if signed_in?(conn) do
+            case has_role?(conn, :admin) do
+                true -> navigation_for_admin()
+                false -> navigation_for_member()
+            end
+        else
+            navigation_for_visitor()
         end
     end
 

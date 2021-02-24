@@ -35,7 +35,7 @@ defmodule PlatformWeb.ViewHelpers do
     def fetch_content(url), do: Platform.Github.fetch_markdown_content(url)
 
     @spec fetch_auth_user(Plug.Conn.t()) :: Platform.User.t() | nil
-    def fetch_auth_user(conn), do:  conn.assigns[:auth_user]
+    def fetch_auth_user(conn), do: conn.assigns[:auth_user]
 
     @spec has_role?(Plug.Conn.t(), atom) :: false | true
     def has_role?(conn, role_label) when is_atom(role_label) do
