@@ -3,7 +3,7 @@ defmodule PlatformWeb.ApiController do
 
     alias Platform.{PageView}
 
-    plug PlatformWeb.ApiMemberPlug, [test: "foo"] when action in [
+    plug PlatformWeb.ApiMemberPlug when action in [
         :page_views_dashboard
     ]
 

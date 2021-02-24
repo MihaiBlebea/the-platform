@@ -1,7 +1,7 @@
 defmodule PlatformWeb.AdminController do
     use PlatformWeb, :controller
 
-    plug PlatformWeb.MemberPlug when action in [
+    plug PlatformWeb.MemberPlug, [roles: [:admin]] when action in [
         :index
     ]
 
