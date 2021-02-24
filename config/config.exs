@@ -34,16 +34,16 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :platform, Platform.Scheduler,
-    jobs: [
-        [
-            schedule: "0 8 * * *",
-            run_strategy: Quantum.RunStrategy.Local,
-            task: {
-                Platform.Report, :send_notification, []
-            }
-        ]
-    ]
+# config :platform, Platform.Scheduler,
+#     jobs: [
+#         [
+#             schedule: "0 8 * * *",
+#             run_strategy: Quantum.RunStrategy.Local,
+#             task: {
+#                 Platform.Report, :send_notification, []
+#             }
+#         ]
+#     ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

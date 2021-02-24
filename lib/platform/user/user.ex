@@ -1,8 +1,9 @@
 defmodule Platform.User do
     use Ecto.Schema
-    import Ecto.Changeset
 
-    alias Platform.{Repo, Role}
+    import Ecto.{Changeset, Query}
+
+    alias Platform.{User, Repo, Role, ReportHelper}
 
     @type t() :: %__MODULE__{}
 
@@ -38,6 +39,16 @@ defmodule Platform.User do
 
     @spec get_by_email(binary) :: nil | __MODULE__.t()
     def get_by_email(email), do: Repo.get_by(__MODULE__, email: email) |> Repo.preload(:role)
+
+    @spec get_registrations_count_today :: %{count: integer}
+    def get_registrations_count_today() do
+        {today_start, today_end} = ReportHelper.get_today_interval()
+
+        from(u in User, where: u.inserted_at >= ^today_start and u.inserted_at <= ^today_end)
+        |> select([u], %{count: count(u.id)})
+        |> Repo.all
+        |> List.first
+    end
 
     defp hash_password(%{valid?: false} = changeset), do: changeset
 
