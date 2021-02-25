@@ -12,11 +12,11 @@
         </div>
 
         <!-- Masthead Subheading-->
-        <p class="masthead-subheading font-weight-light mb-0">
+        <h5>
             <%= for tag <- @article.tags do %>
                 <a href="/tag/<%= tag.label %>" class="badge badge-primary mb-2 mb-sm-0 mr-2"><%= tag.label %></a>
             <% end %>
-        </p>
+        </h5>
     </div>
 </header>
 
