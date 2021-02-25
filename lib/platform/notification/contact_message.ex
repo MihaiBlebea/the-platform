@@ -1,9 +1,9 @@
 defmodule Platform.ContactMessage do
     use Ecto.Schema
 
-    import Ecto.Changeset
+    import Ecto.{Changeset, Query}
 
-    alias Platform.{Repo}
+    alias Platform.{Repo, ContactMessage, ReportHelper}
 
     @type t() :: %__MODULE__{}
 
@@ -28,5 +28,16 @@ defmodule Platform.ContactMessage do
     def save(contact_message) do
         changeset(%__MODULE__{}, contact_message)
         |> Repo.insert
+    end
+
+    @spec get_today() :: [%{count: integer}]
+    def get_today() do
+        {today_start, today_end} = ReportHelper.get_today_interval()
+
+        from(cm in ContactMessage, where: cm.inserted_at >= ^today_start and cm.inserted_at <= ^today_end)
+        |> group_by([cm], fragment("DAY(?)", cm.inserted_at))
+        |> select([cm], %{count: count(cm.id)})
+        |> Repo.all
+        |> List.first
     end
 end
