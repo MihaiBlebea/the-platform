@@ -27,14 +27,12 @@ defmodule PlatformWeb.PageController do
                     |> Enum.at(current_page - 1)
                 courses = Course.all
 
-                conn |> render("index.html",
-                    [
-                        token: get_csrf_token(),
-                        articles: articles_paginated,
-                        meta: meta,
-                        courses: courses
-                    ]
-                )
+                conn |> render("index.html", [
+                    token: get_csrf_token(),
+                    articles: articles_paginated,
+                    meta: meta,
+                    courses: courses
+                ])
         end
     end
 

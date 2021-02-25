@@ -24,7 +24,7 @@ defmodule PlatformWeb.ContactFormPlug do
     # This should trigger the rate limiter
     defp should_trigger_limit(:gt, conn, _now) do
         conn
-        |> put_flash(:error, "Rate limiter")
+        |> put_flash(:error, "This is akward. It seems that you hit the rate limiter of the contact form, please try again in 30 sec.")
         |> redirect(to: "/")
         |> halt()
     end
