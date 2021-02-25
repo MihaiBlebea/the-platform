@@ -19,7 +19,10 @@ defmodule PlatformWeb.TagController do
                 |> render(:"404")
 
             true ->
-                articles = tag.articles
+                articles =
+                    tag.articles
+                    |> Enum.filter(fn (article) -> article.active == true end)
+
                 current_page = conn |> Pagination.get_current_page
                 meta = articles |> Pagination.paginate(@articles_per_page, current_page)
                 case current_page < 1 or current_page > Pagination.get_total_pages(articles, @articles_per_page) do

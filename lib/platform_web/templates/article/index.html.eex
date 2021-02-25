@@ -12,11 +12,11 @@
         </div>
 
         <!-- Masthead Subheading-->
-        <p class="masthead-subheading font-weight-light mb-0">
+        <h5>
             <%= for tag <- @article.tags do %>
                 <a href="/tag/<%= tag.label %>" class="badge badge-primary mb-2 mb-sm-0 mr-2"><%= tag.label %></a>
             <% end %>
-        </p>
+        </h5>
     </div>
 </header>
 
@@ -24,7 +24,9 @@
     <div class="container">
 
         <div class="row justify-content-center mb-5">
-            <img class="col-lg-12 col-md-12 w-100 main-article-img" src="<%= @article.image_url %>">
+            <div class="col-lg-12 col-md-12">
+                <img class="w-100" src="<%= @article.image_url %>">
+            </div>
         </div>
 
         <div class="row mb-5">
