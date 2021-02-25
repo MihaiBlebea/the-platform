@@ -52,8 +52,12 @@
                         <h4>Stats today</h4>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between">
-                                <div>User registrations</div>
-                                <div><%= @registrations.count %></div>
+                                <div>Today users</div>
+                                <div><%= @today_regs.count %></div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>Total users</div>
+                                <div><%= @regs.count %></div>
                             </li>
                         </ul>
                     </div>

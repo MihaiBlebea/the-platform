@@ -7,6 +7,8 @@ defmodule PlatformWeb.PageController do
 
     @articles_per_page 10
 
+    plug PlatformWeb.ContactFormPlug when action in [:contact]
+
     @spec index(Plug.Conn.t(), map) :: Plug.Conn.t()
     def index(conn, _params) do
         articles = Article.all_active
@@ -37,14 +39,14 @@ defmodule PlatformWeb.PageController do
     end
 
     @spec contact(Plug.Conn.t(), map) :: Plug.Conn.t()
-    def contact(conn, %{"name" => name, "email" => email, "phone" => phone, "message" => message}) do
-
-        case Platform.Slack.contact_form(name, email, phone, message) do
-            :ok ->
+    def contact(conn, %{"name" => name, "email" => email, "phone" => phone, "message" => message} = request) do
+        Platform.Slack.contact_form(name, email, phone, message)
+        case Platform.ContactMessage.save(request) do
+            {:ok, _msg} ->
                 conn
                 |> put_flash(:info, "Your message has been sent")
                 |> redirect(to: "/")
-            _ ->
+            {:error, _msg} ->
                 conn
                 |> put_flash(:error, "We were not able to send your message at this time. Please try again later")
                 |> redirect(to: "/")

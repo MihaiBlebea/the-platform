@@ -50,6 +50,14 @@ defmodule Platform.User do
         |> List.first
     end
 
+    @spec get_total_users :: %{count: integer}
+    def get_total_users do
+        from(u in User)
+        |> select([u], %{count: count(u.id)})
+        |> Repo.all
+        |> List.first
+    end
+
     defp hash_password(%{valid?: false} = changeset), do: changeset
 
     defp hash_password(%{valid?: true} = changeset) do
