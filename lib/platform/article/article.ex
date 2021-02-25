@@ -113,7 +113,7 @@ defmodule Platform.Article do
     end
 
     def get_linkedin_share_url(%__MODULE__{} = article) do
-        "https://www.linkedin.com/shareArticle?mini=true&url=https://mihaiblebea.com/article/#{ article.slug }&title=#{ article.title }&summary=#{ article.description }&source="
+        "https://www.linkedin.com/sharing/share-offsite/?url=https://mihaiblebea.com/article/#{ article.slug }"
     end
 
     @spec get_facebook_share_url(nil | Platform.Article.t()) :: binary
