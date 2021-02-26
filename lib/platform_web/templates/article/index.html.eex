@@ -39,7 +39,7 @@
 
         <div class="row mb-5">
             <div class="col-lg-8 col-md-8 mx-auto">
-                <%= render_component "card_lead.html" %>
+                <%= render_component "card_lead.html", assigns %>
             </div>
         </div>
 

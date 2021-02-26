@@ -25,6 +25,7 @@ defmodule PlatformWeb.ArticleController do
                         article: article,
                         related_articles: related_articles,
                         page_title: article.title,
+                        token: get_csrf_token()
                     ]
                 )
         end

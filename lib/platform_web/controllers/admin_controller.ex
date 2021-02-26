@@ -1,7 +1,7 @@
 defmodule PlatformWeb.AdminController do
     use PlatformWeb, :controller
 
-    alias Platform.{PageView, User, ContactMessage}
+    alias Platform.{PageView, User, ContactMessage, Subscriber}
 
     plug PlatformWeb.MemberPlug, [roles: [:admin]] when action in [
         :index
@@ -13,13 +13,17 @@ defmodule PlatformWeb.AdminController do
         today_regs = User.get_registrations_count_today
         regs = User.get_total_users
         contact_messages = ContactMessage.get_today
+        total_subs = Subscriber.get_total_subscribers
+        today_subs = Subscriber.get_subscribers_today
 
         conn
         |> render("index.html", [
             page_views: page_views,
             today_regs: today_regs,
             regs: regs,
-            contact_messages: contact_messages
+            contact_messages: contact_messages,
+            total_subs: total_subs,
+            today_subs: today_subs
         ])
     end
 end

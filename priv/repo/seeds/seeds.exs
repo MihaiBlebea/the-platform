@@ -36,6 +36,15 @@ Article.save(%{
     active: true
 })
 
+Article.save(%{
+    title: "How To Effortlessly Migrate Your Code With This 8 Step Proven Plan",
+    slug: "migrate-code-with-8-step-proven-plan",
+    image_url: "https://www.scienceabc.com/wp-content/uploads/2015/04/shutterstock_317822987.jpg",
+    description: "As time passes, new frameworks appear, older versions are put to rest and the tech environment is shifting and becoming better, faster and more reliable. Application are slowly be becoming legacy. It's time for the dreaded MIGRATION.",
+    content_url: "https://raw.githubusercontent.com/MihaiBlebea/mihaiblebea-content/master/migration_plan.md",
+    active: true
+})
+
 Tag.save(%{
     label: "kube",
     active: true
@@ -43,6 +52,16 @@ Tag.save(%{
 
 Tag.save(%{
     label: "terraform",
+    active: true
+})
+
+Tag.save(%{
+    label: "golang",
+    active: true
+})
+
+Tag.save(%{
+    label: "leadership",
     active: true
 })
 
@@ -64,6 +83,11 @@ ArticleTag.save(%{
 ArticleTag.save(%{
     article_id: 4,
     tag_id: 2
+})
+
+ArticleTag.save(%{
+    article_id: 5,
+    tag_id: 4
 })
 
 Role.save(%{

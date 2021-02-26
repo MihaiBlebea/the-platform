@@ -43,6 +43,8 @@ defmodule PlatformWeb.Router do
         get "/member/:course/:lesson", MembershipController, :get_lesson
 
         get "/admin", AdminController, :index
+
+        post "/subscribe", MarketingController, :subscribe
     end
 
     # Other scopes may use custom stacks.

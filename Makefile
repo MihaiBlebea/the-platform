@@ -38,4 +38,4 @@ down:
 	cd ./deploy && docker-compose down
 
 local:
-	cat ./deploy/.env && make server
+	make server
