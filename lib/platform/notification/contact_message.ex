@@ -30,14 +30,20 @@ defmodule Platform.ContactMessage do
         |> Repo.insert
     end
 
-    @spec get_today() :: [%{count: integer}]
+    @spec get_today() :: %{count: integer}
     def get_today() do
         {today_start, today_end} = ReportHelper.get_today_interval()
 
-        from(cm in ContactMessage, where: cm.inserted_at >= ^today_start and cm.inserted_at <= ^today_end)
-        |> group_by([cm], fragment("DAY(?)", cm.inserted_at))
-        |> select([cm], %{count: count(cm.id)})
-        |> Repo.all
-        |> List.first
+        messages =
+            from(cm in ContactMessage, where: cm.inserted_at >= ^today_start and cm.inserted_at <= ^today_end)
+            |> group_by([cm], fragment("DAY(?)", cm.inserted_at))
+            |> select([cm], %{count: count(cm.id)})
+            |> Repo.all
+            |> List.first
+
+        case messages do
+            nil -> %{count: 0}
+            messages -> messages
+        end
     end
 end

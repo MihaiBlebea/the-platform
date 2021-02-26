@@ -26,6 +26,17 @@ config :platform,
     linkedin_url: "https://www.linkedin.com/in/mihai-blebea-87353310b",
     download_cv_url: "https://github.com/MihaiBlebea/mihai_blebea_cv/raw/master/Mihai_Blebea_latest_CV.pdf"
 
+# Email marketing
+config :platform,
+    ck_api_key: System.get_env("CONVERT_KIT_API_KEY"),
+    ck_secret_key: System.get_env("CONVERT_KIT_SECRET_KEY"),
+    ck_form_id: System.get_env("CONVERT_KIT_FORM_ID")
+
+# Slack and github configs
+config :platform,
+    slack_webhook: System.get_env("SLACK_WEBHOOK"),
+    github_token: System.get_env("GITHUB_TOKEN")
+
 # Configures Elixir's Logger
 config :logger, :console,
     format: "$time $metadata[$level] $message\n",

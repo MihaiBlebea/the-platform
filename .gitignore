@@ -39,3 +39,5 @@ npm-debug.log
 volume
 
 .elixir_ls
+
+set_env.sh

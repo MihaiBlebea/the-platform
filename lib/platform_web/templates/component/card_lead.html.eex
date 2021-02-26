@@ -13,7 +13,11 @@
         <p>I am going to publish posts and tutorials at a regular interval, but we all know how life can get in the way.</p>
         <p>If you want to stay in touch and get all the latest content first, then you may consider subscribing to my awesome email list</p>
 
-        <form action="/lead" method="POST">
+        <form action="/subscribe" method="POST">
+            <input type="hidden" value="<%= @token %>" name="_csrf_token"/>
+            <input type="hidden" value="1" name="form_id"/>
+            <input type="hidden" value="<%= @conn.request_path %>" name="url"/>
+
             <div class="control-group mb-4">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Email Address</label>
@@ -25,7 +29,7 @@
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-xl btn-primary">
                     <i class="fas fa-download mr-2"></i>
-                    Free Download!
+                    Subscribe!
                 </button>
             </div>
 

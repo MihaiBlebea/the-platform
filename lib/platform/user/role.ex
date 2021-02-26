@@ -1,5 +1,6 @@
 defmodule Platform.Role do
     use Ecto.Schema
+
     import Ecto.Changeset
 
     alias Platform.{Repo, User}

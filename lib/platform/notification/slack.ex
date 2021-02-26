@@ -1,7 +1,6 @@
 defmodule Platform.Slack do
     @spec send(map) :: :ok | :fail
     def send(payload) do
-        IO.inspect payload
         url = Application.get_env(:platform, :slack_webhook)
         headers = ["Content-Type": "application/json"]
         body_content = Jason.encode!(payload)

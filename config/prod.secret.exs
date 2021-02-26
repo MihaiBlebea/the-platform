@@ -20,10 +20,6 @@ config :platform, Platform.Repo,
     port: System.get_env("MYSQL_PORT"),
     pool_size: 10
 
-config :platform,
-    slack_webhook: System.get_env("SLACK_WEBHOOK"),
-    github_token: System.get_env("GITHUB_TOKEN")
-
 config :platform, Platform.Repo,
     # ssl: true,
     url: database_url,
