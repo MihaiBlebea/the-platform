@@ -7,6 +7,15 @@ defmodule Platform.Role do
 
     @type t() :: %__MODULE__{}
 
+    @derive {
+        Jason.Encoder, only: [
+            :id,
+            :title,
+            :label,
+            :inserted_at
+        ]
+    }
+
     schema "roles" do
         field :active, :boolean, default: false
         field :title, :string

@@ -1,7 +1,7 @@
 defmodule PlatformWeb.ApiController do
     use PlatformWeb, :controller
 
-    alias Platform.{Tag, Article}
+    alias Platform.{User, Tag, Article}
 
     plug PlatformWeb.JwtPlug
 
@@ -82,6 +82,11 @@ defmodule PlatformWeb.ApiController do
                     {:error, _err} -> conn |> invalid_request("Could not delete tag")
                 end
         end
+    end
+
+    @spec list_users(Plug.Conn.t(), any) :: Plug.Conn.t()
+    def list_users(conn, _opts) do
+        conn |> success_request(User.all)
     end
 
     defp success_request(conn, resources, message) do

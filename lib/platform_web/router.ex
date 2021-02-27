@@ -61,6 +61,8 @@ defmodule PlatformWeb.Router do
         delete "/article/:id", ApiController, :delete_article
         get "/articles", ApiController, :list_articles
 
+        get "/users", ApiController, :list_users
+
     end
 
     # Enables LiveDashboard only for development

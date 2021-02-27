@@ -7,6 +7,16 @@ defmodule Platform.User do
 
     @type t() :: %__MODULE__{}
 
+    @derive {
+        Jason.Encoder, only: [
+            :id,
+            :name,
+            :email,
+            :role,
+            :inserted_at
+        ]
+    }
+
     schema "users" do
         field :email, :string
         field :marketing_consent, :boolean, default: false
@@ -62,6 +72,9 @@ defmodule Platform.User do
         |> Repo.all
         |> List.first
     end
+
+    @spec all :: [] | [Platform.User.t()]
+    def all(), do: Repo.all(__MODULE__) |> Repo.preload(:role)
 
     defp hash_password(%{valid?: false} = changeset), do: changeset
 
