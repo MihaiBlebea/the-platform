@@ -1,7 +1,7 @@
 defmodule PlatformWeb.ApiController do
     use PlatformWeb, :controller
 
-    alias Platform.{PageView, Tag, Article}
+    alias Platform.{Tag, Article}
 
     plug PlatformWeb.JwtPlug
 
@@ -17,7 +17,7 @@ defmodule PlatformWeb.ApiController do
         |> Map.put("active", false)
         |> Article.save
         |> case do
-            {:ok, tag} -> conn |> json(tag)
+            {:ok, article} -> conn |> json(article)
             {:error, _err} -> conn |> invalid_request
         end
     end
@@ -25,7 +25,7 @@ defmodule PlatformWeb.ApiController do
     @spec update_article(Plug.Conn.t(), map) :: any
     def update_article(conn, %{"id" => id} = request) do
         case Article.update(id, request) do
-            {:ok, tag} -> conn |> json(tag)
+            {:ok, article} -> conn |> json(article)
             {:error, _err} -> conn |> invalid_request
         end
     end
@@ -51,7 +51,7 @@ defmodule PlatformWeb.ApiController do
     def create_tag(conn, %{"label" => _label, "active" => _active} = request) do
         case Tag.save(request) do
             {:ok, tag} -> conn |> json(tag)
-            {:error, _err} -> conn |> invalid_request
+            {:error, changeset} -> conn |> invalid_request
         end
     end
 
