@@ -42,6 +42,11 @@ config :logger, :console,
     format: "$time $metadata[$level] $message\n",
     metadata: [:request_id]
 
+# JWT config
+config :platform, Platform.Jwt,
+    issuer: "the_platform",
+    secret_key: System.get_env("SECRET_KEY_BASE")
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

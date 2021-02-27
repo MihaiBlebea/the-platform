@@ -49,7 +49,8 @@ defmodule Platform.MixProject do
             {:httpoison, "~> 1.6", override: true},
             {:bcrypt_elixir, "~> 2.0"},
             {:quantum, "~> 3.0"},
-            {:tzdata, "~> 1.1"}
+            {:tzdata, "~> 1.1"},
+            {:guardian, "~> 2.0"}
         ]
     end
 
