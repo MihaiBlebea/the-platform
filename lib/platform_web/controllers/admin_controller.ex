@@ -16,6 +16,7 @@ defmodule PlatformWeb.AdminController do
         contact_messages = ContactMessage.get_today
         total_subs = Subscriber.get_total_subscribers
         today_subs = Subscriber.get_subscribers_today
+        admin_token = conn.assigns[:auth_user].token
 
         conn
         |> render("index.html", [
@@ -25,7 +26,8 @@ defmodule PlatformWeb.AdminController do
             regs: regs,
             contact_messages: contact_messages,
             total_subs: total_subs,
-            today_subs: today_subs
+            today_subs: today_subs,
+            admin_token: admin_token
         ])
     end
 end

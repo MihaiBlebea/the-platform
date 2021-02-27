@@ -19,8 +19,8 @@
 <section class="page-section">
     <div class="container">
 
-        <div class="d-flex justify-content-center mb-5">
-            <a class="btn btn-primary btn-lg" href="/article/list"><i class="fas fa-sticky-note mr-2" aria-hidden="true"></i> Articles</a>
+        <div class="alert alert-secondary mb-5" style="overflow-wrap: anywhere;">
+            <%= @admin_token %>
         </div>
 
         <div class="row mb-5">
