@@ -12,5 +12,7 @@ defmodule Platform.Repo.Migrations.CreateArticles do
 
             timestamps()
         end
+
+        create unique_index(:articles, [:slug])
     end
 end

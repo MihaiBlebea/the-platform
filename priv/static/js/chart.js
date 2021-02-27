@@ -1,20 +1,17 @@
 (function () {
     let elem = document.getElementById('page-views-dashboard')
-    console.log(elem)
-    axios.get("/api/v1/page-views-dashboard").then((result) => {
-        console.log(result.data)
+    if (elem === undefined) {
+        return
+    }
+    
+    let dashboard = JSON.parse(elem.dataset.dashboard)
 
-        let data = result.data.map((pageView) => {
-            return pageView.count
-        })
+    let data = dashboard.map((pageView) => {
+        return pageView.count
+    })
 
-        let labels = result.data.map((pageView) => {
-            return pageView.date
-        })
-
-        showChart(data, labels, elem)
-    }).catch((err) => {
-        console.log(err.message)
+    let labels = dashboard.map((pageView) => {
+        return pageView.date
     })
 
     const showChart = (data, labels, el) => {
@@ -65,15 +62,7 @@
             }
         })
     }
-    
-    const formatDate = (d) => {
-        let timestamp = Date.parse(d)
-        let date = new Date(timestamp)
-    
-        return `${ date.getDate() }.${ formatMonth(date.getMonth()) }.${ date.getFullYear() }`
-    }
-    
-    const formatMonth = (month) => {
-        return ("0" + (month + 1)).slice(-2)
-    }
+
+    // Render the dashboard chart
+    showChart(data, labels, elem)
 })()

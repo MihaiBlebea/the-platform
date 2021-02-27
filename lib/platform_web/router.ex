@@ -51,7 +51,16 @@ defmodule PlatformWeb.Router do
     scope "/api/v1", PlatformWeb do
         pipe_through :api
 
-        get "/page-views-dashboard", ApiController, :page_views_dashboard
+        post "/tag", ApiController, :create_tag
+        put "/tag/:id", ApiController, :update_tag
+        delete "/tag/:id", ApiController, :delete_tag
+        get "/tags", ApiController, :list_tags
+
+        post "/article", ApiController, :create_article
+        put "/article/:id", ApiController, :update_article
+        delete "/article/:id", ApiController, :delete_article
+        get "/articles", ApiController, :list_articles
+
     end
 
     # Enables LiveDashboard only for development

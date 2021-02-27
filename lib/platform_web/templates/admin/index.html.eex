@@ -24,7 +24,7 @@
         </div>
 
         <div class="row mb-5">
-            <canvas id="page-views-dashboard"></canvas>
+            <canvas id="page-views-dashboard" data-dashboard="<%= Jason.encode! @dashboard %>"></canvas>
         </div>
 
         <div class="row">

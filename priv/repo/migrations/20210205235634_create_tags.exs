@@ -9,5 +9,6 @@ defmodule Platform.Repo.Migrations.CreateTags do
             timestamps()
         end
 
+        create unique_index(:tags, [:label])
     end
 end

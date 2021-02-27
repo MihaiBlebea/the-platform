@@ -3,7 +3,7 @@ defmodule Platform.User do
 
     import Ecto.{Changeset, Query}
 
-    alias Platform.{User, Repo, Role, ReportHelper}
+    alias Platform.{User, Repo, Role, ReportHelper, Jwt}
 
     @type t() :: %__MODULE__{}
 
@@ -12,6 +12,7 @@ defmodule Platform.User do
         field :marketing_consent, :boolean, default: false
         field :name, :string
         field :password, :string
+        field :token, :string
 
         timestamps()
 
@@ -22,10 +23,11 @@ defmodule Platform.User do
     @doc false
     def changeset(user, attrs) do
         user
-        |> cast(attrs, [:name, :email, :password, :marketing_consent, :role_id])
+        |> cast(attrs, [:name, :email, :password, :token, :marketing_consent, :role_id])
         |> validate_required([:name, :email, :password, :marketing_consent, :role_id])
         |> unique_constraint([:email])
         |> hash_password
+        |> generate_jwt
     end
 
     @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
@@ -39,6 +41,9 @@ defmodule Platform.User do
 
     @spec get_by_email(binary) :: nil | __MODULE__.t()
     def get_by_email(email), do: Repo.get_by(__MODULE__, email: email) |> Repo.preload(:role)
+
+    @spec get_by_token(binary) :: nil | __MODULE__.t()
+    def get_by_token(token), do: Repo.get_by(__MODULE__, password: token) |> Repo.preload(:role)
 
     @spec get_registrations_count_today :: %{count: integer}
     def get_registrations_count_today() do
@@ -72,4 +77,19 @@ defmodule Platform.User do
     def is_password_valid?(%__MODULE__{password: hash}, password) do
         Bcrypt.verify_pass(password, hash)
     end
+
+    defp generate_jwt(%{valid?: true, changes: %{email: email} } = changeset) do
+        case Jwt.encode_and_sign(email) do
+            {:error, err} ->
+                IO.inspect err
+                changeset
+            {:ok, token, _claim} ->
+                IO.inspect token
+                put_change(changeset, :token, token)
+        end
+    end
+
+    defp generate_jwt(%{valid?: true, changes: _changes} = changeset), do: changeset
+
+    defp generate_jwt(%{valid?: false} = changeset), do: changeset
 end
