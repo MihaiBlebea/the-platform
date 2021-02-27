@@ -7,6 +7,8 @@ defmodule Platform.Tag do
 
     @type t() :: %__MODULE__{}
 
+    @derive {Jason.Encoder, only: [:id, :label, :active, :inserted_at]}
+
     schema "tags" do
         field :active, :boolean, default: false
         field :label, :string
@@ -22,6 +24,7 @@ defmodule Platform.Tag do
         tag
         |> cast(attrs, [:label, :active])
         |> validate_required([:label, :active])
+        |> unique_constraint(:label)
     end
 
     @spec save(map) :: {:ok, __MODULE__.t()} | {:error, any}
@@ -29,6 +32,20 @@ defmodule Platform.Tag do
         changeset(%__MODULE__{}, tag)
         |> Repo.insert
     end
+
+    @spec update(integer, map) :: {:ok, __MODULE__.t()} | {:error, any}
+    def update(id, changes) do
+        case get_by_id(id) do
+            nil -> {:error, "Model not found"}
+            tag ->
+                tag
+                |> changeset(changes)
+                |> Repo.update
+        end
+    end
+
+    @spec delete(__MODULE__.t()) :: {:ok, __MODULE__.t()} | {:error, Ecto.Changeset.t()}
+    def delete(%__MODULE__{} = tag), do: tag |> Repo.delete
 
     @spec all :: [] | [__MODULE__.t()]
     def all(), do: Repo.all(__MODULE__)

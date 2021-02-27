@@ -7,6 +7,19 @@ defmodule Platform.Article do
 
     @type t() :: %__MODULE__{}
 
+    @derive {
+        Jason.Encoder, only: [
+            :id,
+            :title,
+            :description,
+            :image_url,
+            :content_url,
+            :slug,
+            :active,
+            :inserted_at
+        ]
+    }
+
     schema "articles" do
         field :content_url, :string
         field :image_url, :string
@@ -26,6 +39,7 @@ defmodule Platform.Article do
         article
         |> cast(attrs, [:title, :description, :image_url, :content_url, :slug, :active])
         |> validate_required([:title, :description, :image_url, :content_url, :slug, :active])
+        |> unique_constraint(:slug)
     end
 
     @spec update(integer, map) :: {:ok, __MODULE__.t()} | {:error, any}

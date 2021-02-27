@@ -40,6 +40,9 @@ defmodule Platform.User do
     @spec get_by_email(binary) :: nil | __MODULE__.t()
     def get_by_email(email), do: Repo.get_by(__MODULE__, email: email) |> Repo.preload(:role)
 
+    @spec get_by_token(binary) :: nil | __MODULE__.t()
+    def get_by_token(token), do: Repo.get_by(__MODULE__, password: token) |> Repo.preload(:role)
+
     @spec get_registrations_count_today :: %{count: integer}
     def get_registrations_count_today() do
         {today_start, today_end} = ReportHelper.get_today_interval()
