@@ -46,9 +46,9 @@ defmodule PlatformWeb.JwtPlug do
 
     defp found_bearer(_, conn), do: conn |> failed_auth
 
-    def found_token(nil, conn), do: conn |> failed_auth
+    defp found_token(nil, conn), do: conn |> failed_auth
 
-    def found_token(token, _conn), do: token
+    defp found_token(token, _conn), do: token
 
     defp failed_auth(conn), do: conn |> put_status(401) |> json(%{error: "No auth"}) |> halt
 end
