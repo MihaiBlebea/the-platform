@@ -58,6 +58,7 @@ defmodule PlatformWeb.Router do
 
         post "/article", ApiController, :create_article
         put "/article/:id", ApiController, :update_article
+        put "/article/:id/assign-tags", ApiController, :assign_tags_article
         delete "/article/:id", ApiController, :delete_article
         get "/articles", ApiController, :list_articles
 

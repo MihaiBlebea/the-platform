@@ -53,11 +53,11 @@ defmodule Platform.Article do
         end
     end
 
-    @spec update_tags(map, list) :: any
+    @spec update_tags(map, list) :: {:ok, __MODULE__.t()} | {:error, map}
     def update_tags(article, tags) do
         changeset(article, %{})
         |> put_assoc(:tags, tags)
-        |> Repo.update!
+        |> Repo.update
     end
 
     @spec update_tags_by_ids(integer, nil | list) :: any

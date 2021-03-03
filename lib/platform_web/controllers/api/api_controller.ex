@@ -30,6 +30,14 @@ defmodule PlatformWeb.ApiController do
         end
     end
 
+    @spec assign_tags_article(Plug.Conn.t(), map) :: any
+    def assign_tags_article(conn, %{"id" => id, "tags_id" => tags_id}) do
+        case Article.update_tags_by_ids(id, tags_id) do
+            {:ok, article} -> conn |> success_request(article, "Article updated")
+            {:error, _err} -> conn |> invalid_request
+        end
+    end
+
     @spec delete_article(Plug.Conn.t(), any) :: Plug.Conn.t()
     def delete_article(conn, %{"id" => id}) do
         case Article.get_by_id(id) do
