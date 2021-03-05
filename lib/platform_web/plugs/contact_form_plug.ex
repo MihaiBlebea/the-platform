@@ -24,13 +24,13 @@ defmodule PlatformWeb.ContactFormPlug do
     # This should trigger the rate limiter
     defp should_trigger_limit(:gt, conn, _now) do
         conn
-        |> put_flash(:error, "This is akward. It seems that you hit the rate limiter of the contact form, please try again in 30 sec.")
+        |> put_flash(:error, "This is akward. It seems that you hit the rate limiter of the contact form, please try again later.")
         |> redirect(to: "/")
         |> halt()
     end
 
     defp set_expire_date(conn, now) do
-        expire = now |> DateTime.add(30, :second, Tzdata.TimeZoneDatabase)
+        expire = now |> DateTime.add(30 * 60, :second, Tzdata.TimeZoneDatabase)
         conn
         |> put_session(:contact_form_sent, expire)
     end
