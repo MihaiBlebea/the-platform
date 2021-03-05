@@ -10,15 +10,19 @@ defmodule PlatformWeb.ApiController do
         "title" => _title,
         "image_url" => _image_url,
         "content_url" => _content_url,
-        "slug" => _slug,
+        "slug" => slug,
         "description" => _description} = request) do
 
-        request
-        |> Map.put("active", false)
-        |> Article.save
-        |> case do
-            {:ok, article} -> conn |> success_request(article, "Article saved")
-            {:error, _err} -> conn |> invalid_request
+        case Article.get_by_slug(slug) do
+            nil ->
+                request
+                |> Map.put("active", false)
+                |> Article.save
+                |> case do
+                    {:ok, article} -> conn |> success_request(article, "Article saved")
+                    {:error, _err} -> conn |> invalid_request
+                end
+            article -> conn |> success_request(article, "Article already exists")
         end
     end
 
@@ -56,10 +60,14 @@ defmodule PlatformWeb.ApiController do
     end
 
     @spec create_tag(Plug.Conn.t(), map) :: any
-    def create_tag(conn, %{"label" => _label, "active" => _active} = request) do
-        case Tag.save(request) do
-            {:ok, tag} -> conn |> success_request(tag, "Tag saved")
-            {:error, _err} -> conn |> invalid_request
+    def create_tag(conn, %{"label" => label, "active" => _active} = request) do
+        case Tag.get_by_label(label) do
+            nil ->
+                case Tag.save(request) do
+                    {:ok, tag} -> conn |> success_request(tag, "Tag saved")
+                    {:error, _err} -> conn |> invalid_request
+                end
+            tag -> conn |> success_request(tag, "Tag already exists")
         end
     end
 
