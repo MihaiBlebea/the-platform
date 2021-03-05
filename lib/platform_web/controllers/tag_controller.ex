@@ -22,6 +22,7 @@ defmodule PlatformWeb.TagController do
                 articles =
                     tag.articles
                     |> Enum.filter(fn (article) -> article.active == true end)
+                    |> Enum.sort(&(&1.inserted_at >= &2.inserted_at))
 
                 current_page = conn |> Pagination.get_current_page
                 meta = articles |> Pagination.paginate(@articles_per_page, current_page)

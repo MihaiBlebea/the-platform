@@ -106,7 +106,9 @@ defmodule Platform.Article do
 
     @spec all_active :: [] | [Platform.Article.t()]
     def all_active() do
-        from(a in Platform.Article, where: a.active == true) |> Repo.all |> Repo.preload(:tags)
+        from(a in Platform.Article, where: a.active == true, order_by: [desc: a.inserted_at])
+        |> Repo.all
+        |> Repo.preload(:tags)
     end
 
     @spec delete(__MODULE__.t()) :: {:ok, __MODULE__.t()} | {:error, Ecto.Changeset.t()}
