@@ -93,7 +93,7 @@ defmodule Platform.User do
 
     defp generate_jwt(%{valid?: true, changes: %{email: email} } = changeset) do
         case Jwt.encode_and_sign(email) do
-            {:error, err} -> changeset
+            {:error, _err} -> changeset
             {:ok, token, _claim} -> put_change(changeset, :token, token)
         end
     end

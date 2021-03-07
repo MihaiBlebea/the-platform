@@ -4,6 +4,10 @@ defmodule Platform.Jwt do
     alias Platform.{User}
 
     @spec subject_for_token(any, any) :: {:error, :reason_for_error} | {:ok, binary}
+    def subject_for_token(nil, _) do
+        {:error, :reason_for_error}
+    end
+
     def subject_for_token(email, _claims) do
         # You can use any value for the subject of your token but
         # it should be useful in retrieving the resource later, see
@@ -14,11 +18,11 @@ defmodule Platform.Jwt do
         {:ok, sub}
     end
 
-    def subject_for_token(_, _) do
+    @spec resource_from_claims(any) :: {:ok, nil | User.t()}
+    def resource_from_claims(nil) do
         {:error, :reason_for_error}
     end
 
-    @spec resource_from_claims(any) :: {:ok, nil | User.t()}
     def resource_from_claims(claims) do
         # Here we'll look up our resource from the claims, the subject can be
         # found in the `"sub"` key. In `above subject_for_token/2` we returned
@@ -26,9 +30,5 @@ defmodule Platform.Jwt do
         email = claims["sub"]
         resource = User.get_by_email(email)
         {:ok,  resource}
-    end
-
-    def resource_from_claims(_claims) do
-        {:error, :reason_for_error}
     end
 end

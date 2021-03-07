@@ -18,7 +18,7 @@ config :platform, Platform.Repo,
 # with webpack to recompile .js and .css sources.
 config :platform, PlatformWeb.Endpoint,
     http: [port: 8080],
-    debug_errors: true,
+    debug_errors: false,
     code_reloader: true,
     check_origin: false,
     watchers: [
