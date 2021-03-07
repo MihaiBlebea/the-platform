@@ -70,4 +70,13 @@ defmodule PlatformWeb.ComponentView do
             %{url: Application.get_env(:platform, :github_url), icon_class: "fab fa-fw fa-github"}
         ]
     end
+
+    @spec is_subscriber?(Plug.Conn.t()) :: true | false
+    def is_subscriber?(conn) do
+        case conn |> Plug.Conn.get_session(:subscriber) do
+            nil -> false
+            false -> false
+            true -> true
+        end
+    end
 end

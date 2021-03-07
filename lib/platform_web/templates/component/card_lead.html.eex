@@ -1,3 +1,5 @@
+<!-- Do not show the modal if the visitor is already a subscriber -->
+<%= if is_subscriber?(@conn) === false do %>
 <div class="card lead-box">
     <div class="card-body px-3 py-4 p-md-5">
 
@@ -36,3 +38,4 @@
         </form>
     </div>
 </div>
+<% end %>

@@ -96,14 +96,12 @@ class SocialFooter {
     }
 
     _attachFooter() {
-        console.log("attach",  this.elementId)
         document.body.appendChild(
             this._buildFooter()
         )
     }
 
     _deattachFooter() {
-        console.log("_deattachFooter")
         document.body.removeChild(
             document.getElementById(this.elementId)
         )

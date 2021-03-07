@@ -181,6 +181,15 @@ td.no-wrap {
     width: fit-content;
 }
 
+.modal-lead-text {
+    font-size: 1.2rem;
+}
+
+/* Override the modal close button size */
+.close {
+    font-size: 2rem!important;
+}
+
 @media (min-width: 992px) {
     .article-content p {
         font-size: 21px;

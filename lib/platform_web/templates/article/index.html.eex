@@ -70,6 +70,8 @@
 </div>
 <% end %>
 
+<%= render_component "modal_lead.html", assigns %>
+
 <!-- Disqus script-->
 <script>
 /**
@@ -116,3 +118,6 @@ s.setAttribute('data-timestamp', +new Date());
 
     window.onscroll = function() { social.scrolling() }
 </script>
+
+<!-- Leadbox popup -->
+<script src="<%= Routes.static_path(@conn, "/js/leadbox-popup.js") %>"></script>

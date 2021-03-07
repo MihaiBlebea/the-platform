@@ -1,0 +1,57 @@
+<!-- Do not show the modal if the visitor is already a subscriber -->
+<%= if is_subscriber?(@conn) === false do %>
+<div class="portfolio-modal modal fade" id="modal-lead" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+            </button>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <!-- Portfolio Modal - Title-->
+                            <h2 class="portfolio-modal-title text-secondary text-center text-uppercase mb-0">Want more?</h2>
+                            <!-- Icon Divider-->
+                            <div class="divider-custom">
+                                <div class="divider-custom-line"></div>
+                                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                <div class="divider-custom-line"></div>
+                            </div>
+
+                            <p class="modal-lead-text">I am going to publish posts and tutorials at a regular interval, but we all know how life can get in the way.</p>
+                            <p class="modal-lead-text">If you want to stay in touch and get all the latest content first, then you may consider subscribing to my awesome email list</p>
+
+                            <form action="/subscribe" method="POST">
+                                <input type="hidden" value="<%= @token %>" name="_csrf_token"/>
+                                <input type="hidden" value="1" name="form_id"/>
+                                <input type="hidden" value="<%= @conn.request_path %>" name="url"/>
+
+                                <div class="control-group mb-4">
+                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                        <label>Email Address</label>
+                                        <input class="form-control" name="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address." />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-xl btn-primary">
+                                        <i class="fas fa-download mr-2"></i>
+                                        Subscribe!
+                                    </button>
+                                </div>
+
+                            </form>
+
+                            <div class="mt-5" data-dismiss="modal">
+                                <a href="">No thank you, I am not interested to explore more cool stuff</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>
