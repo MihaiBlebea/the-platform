@@ -115,7 +115,7 @@ defmodule PlatformWeb.ApiController do
 
     @spec list_views(Plug.Conn.t(), any) :: Plug.Conn.t()
     def list_views(conn, _opts) do
-        views = PageView.all_count_by_day
+        views = PageView.all_count_by_day |> Enum.sort_by(&(&1.date), {:desc, Date})
         per_page_views = PageView.get_top_pages_today
 
         conn |> success_request(%{views: views, per_page_views: per_page_views})
