@@ -1,7 +1,7 @@
 defmodule PlatformWeb.ApiController do
     use PlatformWeb, :controller
 
-    alias Platform.{User, Tag, Article}
+    alias Platform.{User, Tag, Article, Subscriber, PageView}
 
     plug PlatformWeb.JwtPlug
 
@@ -103,6 +103,22 @@ defmodule PlatformWeb.ApiController do
     @spec list_users(Plug.Conn.t(), any) :: Plug.Conn.t()
     def list_users(conn, _opts) do
         conn |> success_request(User.all)
+    end
+
+    @spec list_subscribers(Plug.Conn.t(), any) :: Plug.Conn.t()
+    def list_subscribers(conn, _opts) do
+        total = Subscriber.get_total_subscribers
+        today = Subscriber.get_subscribers_today
+
+        conn |> success_request(%{total: total, today: today})
+    end
+
+    @spec list_views(Plug.Conn.t(), any) :: Plug.Conn.t()
+    def list_views(conn, _opts) do
+        views = PageView.all_count_by_day
+        per_page_views = PageView.get_top_pages_today
+
+        conn |> success_request(%{views: views, per_page_views: per_page_views})
     end
 
     defp success_request(conn, resources, message) do

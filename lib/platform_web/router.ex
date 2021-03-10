@@ -64,6 +64,8 @@ defmodule PlatformWeb.Router do
 
         get "/users", ApiController, :list_users
 
+        get "/views", ApiController, :list_views
+        get "/subscribers", ApiController, :list_subscribers
     end
 
     # Enables LiveDashboard only for development
